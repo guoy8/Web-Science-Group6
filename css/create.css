@@ -1,0 +1,49 @@
+ul, li {
+  padding: 0;
+  margin: 0;
+}
+#audio {
+  height: 100%;
+  padding: 1em;
+}
+
+#interface {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding-top: 1.5em;
+}
+#tracks {
+  border: 1px solid #AAA;
+}
+.jcs {   
+  border-color: #45A7C8;
+}
+.jcs-indicator {
+  background-color: #45A7C8;
+  border: 1px solid #45A7C8;
+}
+
+.output, .slabel {
+  line-height: 3em;
+}
+.accordion.columns {
+  padding: 0;
+}
+.accordion {
+  border: 1px solid #DDD;
+  background-color: white;
+}
+#addbtns .small, #editbtns .small {
+  padding: 0.7rem 1.8rem 0.7rem;
+}
+#saveOpts {
+  margin-top: 1em;
+}
+#save {
+  float: right;
+}
+footer {
+  margin-top: 2em;
+}
+footer h4 {
+  color: #000 !important;
+}

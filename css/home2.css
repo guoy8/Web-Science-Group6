@@ -1,0 +1,13 @@
+body {
+	background: url('http://www.welovesolo.com/wp-content/uploads/2014/12/p17ugi3sks12fs1b7e17v719ad6o05-details1.jpg');
+	background-size: cover;
+}
+#tracks {
+    background:url("../img/sunny_treetops.jpg") !important;
+    background-size: cover;
+}
+
+#contact {
+    padding: 1em;
+    border-radius: 1em;
+}

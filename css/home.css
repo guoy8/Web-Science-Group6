@@ -1,0 +1,10 @@
+
+#tracks {
+    background:url("../img/fields.jpg") !important;
+    background-size: cover;
+}
+
+#contact {
+    padding: 1em;
+    border-radius: 1em;
+}

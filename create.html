@@ -1,0 +1,312 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>.wavpool // create </title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/foundation.min.css" />
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/create.css" />
+  </head>
+  <body onload="init()">
+
+    <section class="navigation-section show-for-large-up">
+      <div class="row">
+        <div class="large-12 columns">
+          <nav class="top-bar" data-topbar>
+            <ul class="title-area">
+              <li class="name">
+                <a href="index.html">
+                  <img src="img/logo.png" alt=".wavpool"/>
+                </a>
+              </li>
+            </ul>
+            <section class="top-bar-section">
+              <ul class="right">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listen.html">Listen</a></li>
+                <li class="active"><a href="create.html">Create</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="register.html">Login/Register</a></li>
+              </ul>
+            </section>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <div class="off-canvas-wrap" data-offcanvas> 
+      <div class="inner-wrap"> 
+        <nav class="tab-bar hide-for-large-up"> 
+          <section class="middle tab-bar-section"> 
+            <h1 class="title">
+              <a href="index.html">
+                <img src="img/logo.png" alt=".wavpool"/>
+              </a>
+            </h1> 
+          </section> 
+          <section class="right-small"> 
+            <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a> 
+          </section> 
+        </nav> 
+        <aside class="right-off-canvas-menu"> 
+          <ul class="off-canvas-list"> 
+            <li><a href="index.html">Home</a></li>
+            <li><a href="listen.html">Listen</a></li>
+            <li class="active"><a href="create.html">Create</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="register.html">Login/Register</a></li>
+          </ul> 
+        </aside> 
+        <section class="main-section"> 
+          <section id="audio" class="full-width">
+            <div id="interface" class="row">
+              <div class="small-12 medium-12 large-12 columns">
+                <div data-alert class="alert-box info radius hide-for-large">
+                  To start adding sounds to your mix, please select the <i class="fa fa-plus-circle"></i> below
+                  <a href="#" class="close">&times;</a>
+                </div>
+                <!-- All sound sliders go here -->
+                <div id="tracks" class="small-12 medium-12 large-12 columns">
+                  <div id="track1" class="center"></div>
+                  <div id="track0" class="center"></div>
+                  <div class="center">
+                    <button id="addSound" class="centerbtn small" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></button>
+                  </div>
+                </div>
+
+                <!-- Add a new sound options -->
+                <div id="addSoundOpts" class="large-6 show-for-large-up columns">
+                  <h3>Add a new sound:</h3>
+                  <form>
+                    <select id="library" multiple="multiple" class="select"></select>
+                  </form>
+                  <ul id="addbtns" class="button-group even-2">
+                    <li><a href="#" class="small button disabled"><i class="fa fa-play"></i> Play</a></li>
+                    <li><a href="#" class="small button disabled"><i class="fa fa-stop"></i> Stop</a></li>
+                  </ul>
+                  <div class="row">
+                    <span class="small-1 medium-1 large-1 columns slabel"><i class="fa fa-volume-up"></i></span>
+                    <div class="small-10 medium-10 large-10 columns">
+                      <div id="addvolume" class="range-slider" data-slider data-options="display_selector: #addVOutput;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                      </div>
+                    </div>
+                    <div class="small-1 medium-1 large-1 columns">
+                      <span id="addVOutput" class="output"></span>
+                    </div>
+                  </div>
+                  <ul class="accordion small-12 medium-12 large-12 columns" data-accordion="">
+                    <li class="accordion-navigation">
+                      <a href="#aadvopts"><i class="fa fa-plus"></i> Advanced Options</a>
+                      <div id="aadvopts" class="content active">
+                        <!-- Loop Slider -->
+                        <div class="row">
+                          <div class="small-2 medium-2 large-2 columns slabel">
+                            <span class="has-tip"data-tooltip aria-haspopup="true" title="The number of times to loop sound. [-1 is to loop forever]">Loop:</span>
+                          </div>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="addloop" class="range-slider" data-slider data-options="start: -1; end: 100; display_selector: #addLOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="addLOutput" class="output"></span>
+                          </div>
+                        </div>
+                        <!-- Delay Slider -->
+                        <div class="row">
+                          <span class="small-2 medium-2 large-2 columns slabel">Delay:</span>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="adddelay" class="range-slider" data-slider data-options="display_selector: #addDOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="addDOutput" class="output"></span>
+                          </div>
+                        </div>
+                        <!-- Pan Slider -->
+                        <div class="row">
+                          <span class="small-2 medium-2 large-2 columns slabel">Pan:</span>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="addpan" class="range-slider" data-slider data-options="start:-1; end: 1; display_selector: #addPOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="addPOutput" class="output"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Edit current playing sounds -->
+                <div id="editSoundOpts" class="large-6 show-for-large-up columns">
+                  <h3>Edit a current sound:</h3>
+                  <form>
+                    <select id="nowPlaying" multiple="multiple" disabled="disabled" class="select">
+                      <option value="-1">-- No Audio Playing --</option>
+                    </select>
+                  </form>
+                  <ul id="editbtns" class="button-group">
+                    <li><a href="#" class="small button disabled"><i class="fa fa-play"></i> Play</a></li>
+                    <li><a href="#" class="small button disabled"><i class="fa fa-stop"></i> Stop</a></li>
+                    <li><a href="#" class="small button disabled"><i class="fa fa-eject"></i> Remove</a></a></li>
+                    <li><a href="#" class="small button disabled"><i class="fa fa-times"></i> Remove All</a></a></li>
+                  </ul>
+                  <div class="row">
+                    <span class="small-1 medium-1 large-1 columns slabel"><i class="fa fa-volume-up"></i></span>
+                    <div class="small-10 medium-10 large-10 columns">
+                      <div id="editvolume" class="range-slider" data-slider data-options="display_selector: #editVOutput;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                      </div>
+                    </div>
+                    <div class="small-1 medium-1 large-1 columns">
+                      <span id="editVOutput" class="output"></span>
+                    </div>
+                  </div>
+                  <ul class="accordion small-12 medium-12 large-12 columns" data-accordion="">
+                    <li class="accordion-navigation">
+                      <a href="#eadvopts"><i class="fa fa-plus"></i> Advanced Options</a>
+                      <div id="eadvopts" class="content active">
+                        <!-- Loop Slider -->
+                        <div class="row">
+                          <span class="small-2 medium-2 large-2 columns slabel">Loop:</span>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="editloop" class="range-slider" data-slider data-options="start: -1; end: 100; display_selector: #editLOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="editLOutput" class="output"></span>
+                          </div>
+                        </div>
+                        <!-- Delay Slider -->
+                        <div class="row">
+                          <span class="small-2 medium-2 large-2 columns slabel">Delay:</span>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="editdelay" class="range-slider" data-slider data-options="display_selector: #editDOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="editDOutput" class="output"></span>
+                          </div>
+                        </div>
+                        <!-- Pan Slider -->
+                        <div class="row">
+                          <span class="small-2 medium-2 large-2 columns slabel">Pan:</span>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="editpan" class="range-slider" data-slider data-options="start:-1; end: 1; display_selector: #editPOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="editPOutput" class="output"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Save mix -->
+                <div id="saveOpts" class="large-12 show-for-large-up columns">
+                  <h3>Save this sound mix:</h3>
+                  <form>
+                    <div class="row"> 
+                      <div class="large-12 columns"> 
+                        <label>Name <input type="text" placeholder="Name your sound mix" /> </label> 
+                      </div> 
+                    </div> 
+                    <div class="row"> 
+                      <div class="large-4 columns">
+                        <label>Share your mix with others?</label>
+                        <input type="radio" name="public" value="public" id="public"><label for="public">Public</label>
+                        <input type="radio" name="private" value="private" id="private"><label for="private">Private</label>
+                      </div>
+                      <div class="large-8 columns"> 
+                        <label>Category</label> 
+                        <input id="checkbox1" type="checkbox"><label for="checkbox1">A</label> 
+                        <input id="checkbox2" type="checkbox"><label for="checkbox2">B</label> 
+                        <input id="checkbox2" type="checkbox"><label for="checkbox2">C</label> 
+                      </div> 
+                    </div> 
+                    <button id="save" class="small button">Save</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="error" class="row">
+              <div class="small-12 medium-12 large-12 columns">
+                <h2>Error!</h2> Your browser does not support CreateJS
+              </div> 
+            </div>
+          </section>
+          <footer>
+            <div class="row">
+              <div class="small-12 medium-4 large-4 columns">
+                  <h4>Foundation</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</p>
+              </div>
+       
+              <div class="small-12 medium-4 large-4 columns">
+                  <h4>Foundation</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</p>
+              </div>
+       
+              <div class="small-12 medium-4 large-4 columns">
+                  <h4>Foundation</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</p>
+              </div>
+            </div>
+          </footer>
+          <section class="full-width copyright-section">
+              <div class="row">
+                  <div class="small-12 columns">
+                      <p>&copy; 2014</p>
+                  </div>
+              </div>
+          </section>
+        </section> 
+        <a class="exit-off-canvas"></a> 
+      </div> 
+    </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/foundation/foundation.slider.js"></script>
+    <script src="js/foundation/foundation.accordion.js"></script>
+    <script src="js/circular-slider.js"></script>
+    <script src="js/create.js"></script>
+    <script>
+      $(document).foundation();
+      $('#addloop, #editloop').foundation('slider', 'set_value', -1);
+      $('#adddelay, #editdelay').foundation('slider', 'set_value', 0);
+      $('#track0').CircularSlider({
+        radius: 75,
+        innerCircleRatio: '0.1',
+      });
+      $('#track1').CircularSlider({
+        radius: 125,
+        innerCircleRatio: '0.1',
+      });
+    </script>
+  </body>
+</html>
