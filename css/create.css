@@ -2,17 +2,25 @@ ul, li {
   padding: 0;
   margin: 0;
 }
-#audio {
-  height: 100%;
-  padding: 1em;
-}
-
 #interface {
   background-color: rgba(255, 255, 255, 0.9);
-  padding-top: 1.5em;
+  padding: 1.5em 0;
 }
 #tracks {
   border: 1px solid #AAA;
+}
+.side a {
+  position: relative;
+  top: 1em;
+  left: 0em;
+  padding: 0.8rem !important;
+}
+.side a + a {
+  margin-top: -15px;
+}
+
+#addSoundOpts, #editSoundOpts, #saveSound {
+  top: 5% !important;
 }
 .jcs {   
   border-color: #45A7C8;
@@ -20,6 +28,9 @@ ul, li {
 .jcs-indicator {
   background-color: #45A7C8;
   border: 1px solid #45A7C8;
+}
+#library {
+  height: 8em;
 }
 
 .output, .slabel {
@@ -32,18 +43,29 @@ ul, li {
   border: 1px solid #DDD;
   background-color: white;
 }
-#addbtns .small, #editbtns .small {
-  padding: 0.7rem 1.8rem 0.7rem;
+.accordion .accordion-navigation > .content, .accordion dd > .content {
+  padding: 0.5rem;
+}
+#addBtns .small, #editBtns .small {
+  padding: 0.7rem 1.7rem;
+}
+.loopbtn, .panbtn {
+  padding-top: 11px;
 }
 #saveOpts {
   margin-top: 1em;
 }
+#saveOpts h3 {
+  border-top: 1px solid #C4C4C4;
+  padding-top: 1em;
+}
 #save {
   float: right;
 }
-footer {
+.extra {
   margin-top: 2em;
 }
-footer h4 {
+.extra h4 {
   color: #000 !important;
 }
+
