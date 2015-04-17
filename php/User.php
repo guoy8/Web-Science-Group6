@@ -7,7 +7,7 @@
 
 
 
-require_once('DB.php');
+require_once('php/DB.php');
 class User
 {
 	protected $connection;
@@ -38,6 +38,7 @@ class User
 					session_start();
 					$_SESSION['uid'] = $resultArr[0]['id'];
 					$_SESSION['username'] = $resultArr[0]['username'];
+					$_SESSION['fullname'] = $resultArr[0]['fullname'];
 					$_SESSION['premium'] = $resultArr[0]['premium'];
 					$this->username=$username;
 					return true;
@@ -53,7 +54,7 @@ class User
 	//This function is to register a new user
 	//usage:
 	//$user=new User();//Instantiate a instance only once
-	//$user->register($registrationArr)  ex:$user->register(['haoqihua','abc123','abc123']);
+	//$user->register($registrationArr)  ex:$user->register(['haoqihua@rpi.edu','abc123','haoqihua']);
 	//$registrationArr is an ordered Array 
 	//first element in the array is the username.
 	//second element in the array is the password.
@@ -63,18 +64,21 @@ class User
 	//The function returns true if the new user was created in the database
 	public function register($registrationArr)
 	{
-		if(!$this->isEmpty($registrationArr[0]) and !$this->isEmpty($registrationArr[1]) and 
-			$this->usernameValidation($registrationArr[0]) 
+		if(!$this->isEmpty($registrationArr[0]) 
+			and !$this->isEmpty($registrationArr[1]) 
+			and !$this->isEmpty($registrationArr[2]) 
+			and $this->usernameValidation($registrationArr[2])//full name validation 
+			and $this->emailValidation($registrationArr[0]) 
 			and $this->passwordValidation($registrationArr[1]) 
-			and $this->passwordMatch($registrationArr[1],$registrationArr[2]))
+			)
 		{
 			if($this->checkUnique($registrationArr[0]))
 			{
 				//$user1->InsertRow("users",['username','password'],['Chee','123456']);
 				$salt=self::randomGenerateSalt();
 				$passwordSecure=sha1($registrationArr[1].$salt);
-				$this->connection->InsertRow(self::TABLENAME,['username','password','salt'],
-					[$registrationArr[0],$passwordSecure,$salt]);
+				$this->connection->InsertRow(self::TABLENAME,['username','password','fullname','salt'],
+					[$registrationArr[0],$passwordSecure,$registrationArr[2],$salt]);
 				return true;
 			}
 		}
@@ -164,10 +168,21 @@ class User
 		return true;
 	}
 
-	/*public function emailValidation($email)
-	{
 
-	}*/
+	public function emailValidation($email)
+	{
+		$match="/^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i";
+		if($this->isEmpty($email))
+		{
+			$this->validationErr="email cannot be empty";
+			return false;
+		}else if(!preg_match($match,$email))
+		{
+			$this->validationErr="Not a valid email address";
+			return false;
+		}
+		return true;
+	}
 
 	public function checkUnique($username)
 	{
