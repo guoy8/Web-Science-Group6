@@ -26,7 +26,7 @@ class User
 	//This function returns true if the user pass the authetication and set up the session 
 	public function login($username,$password)
 	{
-		if(!$this->isEmpty($username) and !$this->isEmpty($password) and $this->usernameValidation($username) and $this->passwordValidation($password))
+		if(!$this->isEmpty($username) and !$this->isEmpty($password) and $this->emailValidation($username) and $this->passwordValidation($password))
 		{
 			$resultArr=$this->connection->SearchForRow(self::TABLENAME,'*',['username'],[$username]);
 			if(count($resultArr)==1)
