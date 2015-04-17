@@ -3,17 +3,21 @@ if(isset($_POST) and !empty($_POST))
 {
   $username=$_POST['email'];
   $password=$_POST['password'];
-  echo $username;
-  echo $password;
   require_once('php/User.php');
   $user=new User();
   if(!$result=$user->login($username,$password))
   {
-    echo $user->getErrMessage();
-    echo "wrong";
+     if($user->getErrMessage()!="")
+      {
+        echo $user->getErrMessage();
+      }else
+      {
+        echo "Email and password not in database";
+      }
+    
   }else
   {
-    echo "cool";
+    header("Refresh: 1; URL=index.html");
   }
 }
 ?>
