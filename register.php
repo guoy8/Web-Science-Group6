@@ -91,13 +91,13 @@ if(isset($_POST) and !empty($_POST))
             <div class="large-4 large-centered columns">
               <div class="signup-panel">
                 <p class="welcome">Hello, new user!</p>
-                <form action="register.php" method="post">
+                <form action="register.php" method="post" id="regform">
                   <div class="row collapse">
                     <div class="small-2  columns">
                       <span class="prefix"><i class="fi-torso"></i></span>
                     </div>
                     <div class="small-10  columns">
-                      <input type="text" placeholder="Full Name" name="fullname">
+                      <input name="fullname" type="text" placeholder="Full Name" name="fullname">
                     </div>
                   </div>
                   <div class="row collapse">
@@ -105,7 +105,7 @@ if(isset($_POST) and !empty($_POST))
                       <span class="prefix"><i class="fi-mail"></i></span>
                     </div>
                     <div class="small-10  columns">
-                      <input id="email" class="form-control" type="email" placeholder="Email" name="email">
+                      <input name="email" id="email" class="form-control" type="email" placeholder="Email" name="email">
                     </div>
                   </div>
                   <div class="row collapse">
@@ -113,7 +113,7 @@ if(isset($_POST) and !empty($_POST))
                       <span class="prefix"><i class="fi-lock"></i></span>
                     </div>
                     <div class="small-10 columns ">
-                      <input type="password" name="password" placeholder="Password">
+                      <input name="password" type="password" name="password" placeholder="Password">
                     </div>
                   </div>
                   <input type="submit" href="#" class="button " value="Sign Up!"> 
@@ -126,11 +126,16 @@ if(isset($_POST) and !empty($_POST))
     </section> 
         <section class="main-section">
         </section>
+  <script src="js/vendor/jquery.js"></script>
   <script src="js/jquery.validate.js"></script>
   <script>
   $(document).ready( function(){
     $("#regform").validate({
                 rules: {
+                    fullname: {
+                      required: true
+
+                    },
                     email: {
                         required: true,
                         email: true
@@ -141,6 +146,10 @@ if(isset($_POST) and !empty($_POST))
                     },
                 },
                 messages: {
+                  fullname:{
+                    required: "Please enter your name",
+
+                  },
                     password: {
                         required: "Please provide a password",
                         minlength: "Your password must be at least 5 characters long"
