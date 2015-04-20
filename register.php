@@ -126,19 +126,33 @@ if(isset($_POST) and !empty($_POST))
     </section> 
         <section class="main-section">
         </section>
-    <script src="js/validate.min.js"></script>
-    <script>
-      (function() {
-      // These are the constraints used to validate the form
-      var constraints = {
-        email: {
-          // Email is required
-          presence: true,
-          // and must be an email (duh)
-          email: true
-        }
-    };
-})
-    </script>
+  <script src="js/jquery.validate.js"></script>
+  <script>
+  $(document).ready( function(){
+    $("#regform").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5
+                    },
+                },
+                messages: {
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long"
+                    },
+                    email: "Please enter a valid email address",
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+  }
+    );
+  </script>
 	</body>
 </html>
