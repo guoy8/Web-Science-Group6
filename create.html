@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="css/general.css" />
     <link rel="stylesheet" href="css/create.css" />
   </head>
+
   <body onload="init()">
 
+<!-- For large screens, show top navbar-->
     <section class="navigation-section show-for-large-up">
       <div class="row">
         <div class="large-12 columns">
@@ -38,6 +40,7 @@
       </div>
     </section>
 
+<!-- For mobile screens, show a menu icon that opens up to side nav-->
     <div class="off-canvas-wrap" data-offcanvas> 
       <div class="inner-wrap"> 
         <nav class="tab-bar hide-for-large-up"> 
@@ -61,172 +64,161 @@
             <li><a href="register.html">Login/Register</a></li>
           </ul> 
         </aside> 
+
+<!-- All content goes here -->
         <section class="main-section"> 
+
+          <!-- This holds the audio player interface -->
           <section id="audio" class="full-width">
             <div id="interface" class="row">
               <div class="small-12 medium-12 large-12 columns">
-                <div data-alert class="alert-box info radius hide-for-large">
-                  To start adding sounds to your mix, please select the <i class="fa fa-plus-circle"></i> below
-                  <a href="#" class="close">&times;</a>
-                </div>
+                <div id="maxError"></div>
+
                 <!-- All sound sliders go here -->
                 <div id="tracks" class="small-12 medium-12 large-12 columns">
+
+                  <div id="track4" class="center"></div>
+                  <div id="track3" class="center"></div>
+                  <div id="track2" class="center"></div>
                   <div id="track1" class="center"></div>
                   <div id="track0" class="center"></div>
+
+                  <!-- Buttons on the slider interface -->
                   <div class="center">
-                    <button id="addSound" class="centerbtn small" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></button>
+                    <button id="playAll" class="centerbtn small"><i class="fa fa-fw fa-play"></i></button>
+                  </div>
+                  <div class="side">
+                    <a href="#" class="small button addSound" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></a>
+                    <a href="#" class="small button editSound" data-reveal-id="editSoundOpts"><i class="fa fa-fw fa fa-pencil-square-o"></i></a>
+                    <a href="#" class="small button saveSound" data-reveal-id="saveSound"><i class="fa fa-fw fa-floppy-o"></i></a>
                   </div>
                 </div>
 
                 <!-- Add a new sound options -->
-                <div id="addSoundOpts" class="large-6 show-for-large-up columns">
-                  <h3>Add a new sound:</h3>
-                  <form>
+                <div id="addSoundOpts" class="reveal-modal medium" data-reveal aria-labelledby="addSoundTitle" aria-hidden="true" role="dialog">
+                  <h3 id="addSoundTitle"><i class="fa fa-fw fa-plus-circle"></i> Add a new sound:</h3>
+                  <!-- List of available sounds -->
+                  <form> 
                     <select id="library" multiple="multiple" class="select"></select>
                   </form>
-                  <ul id="addbtns" class="button-group even-2">
-                    <li><a href="#" class="small button disabled"><i class="fa fa-play"></i> Play</a></li>
-                    <li><a href="#" class="small button disabled"><i class="fa fa-stop"></i> Stop</a></li>
+                  <!-- Preview/Add -->
+                  <ul id="addBtns" class="button-group even-2">
+                    <li><button id="previewBtn" class="small button disabled"><i class="fa fa-play"></i> Preview</button></li>
+                    <li><button id="addBtn" href="#" class="small button disabled"><i class="fa fa-plus"></i> Add Sound</button></li>
                   </ul>
-                  <div class="row">
-                    <span class="small-1 medium-1 large-1 columns slabel"><i class="fa fa-volume-up"></i></span>
-                    <div class="small-10 medium-10 large-10 columns">
-                      <div id="addvolume" class="range-slider" data-slider data-options="display_selector: #addVOutput;">
-                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                        <span class="range-slider-active-segment"></span>
-                      </div>
-                    </div>
-                    <div class="small-1 medium-1 large-1 columns">
-                      <span id="addVOutput" class="output"></span>
-                    </div>
-                  </div>
+
+                  <!-- Advanced Options-->
                   <ul class="accordion small-12 medium-12 large-12 columns" data-accordion="">
                     <li class="accordion-navigation">
-                      <a href="#aadvopts"><i class="fa fa-plus"></i> Advanced Options</a>
-                      <div id="aadvopts" class="content active">
-                        <!-- Loop Slider -->
+                      <a href="#addOpts">Sound Options</a>
+                      <div id="addOpts" class="content active">
+
+                        <!-- Sound Volume -->
+                        <div class="row">
+                          <div class="small-2 medium-2 large-2 columns slabel">Volume:</div>
+                          <div class="small-9 medium-9 large-9 columns">
+                            <div id="addVolume" class="range-slider disabled" data-slider data-options="display_selector: #addVOutput;">
+                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                              <span class="range-slider-active-segment"></span>
+                            </div>
+                          </div>
+                          <div class="small-1 medium-1 large-1 columns">
+                            <span id="addVOutput" class="output"></span>
+                          </div>
+                        </div>
+
+                        <!-- Loop -->
+                        <div class="row">
+                          <div class="small-2 medium-2 large-2 columns slabel">Loop:</div>
+                          <div id="addLoop" class="loopbtn small-10 medium-10 large-10 columns">
+                            <input type="radio" name="addloop" value="-1" id="yesLoop" checked disabled><label for="yesLoop">Yes</label>
+                            <input type="radio" name="addloop" value="1" id="noLoop" disabled><label for="noLoop">No</label>
+                          </div>
+                        </div>
+
+                        <!-- Pan -->
                         <div class="row">
                           <div class="small-2 medium-2 large-2 columns slabel">
-                            <span class="has-tip"data-tooltip aria-haspopup="true" title="The number of times to loop sound. [-1 is to loop forever]">Loop:</span>
+                            <span class="has-tip" data-tooltip aria-haspopup="true" title="If able, sound is localized to the chosen direction.">Pan:</span>
                           </div>
-                          <div class="small-9 medium-9 large-9 columns">
-                            <div id="addloop" class="range-slider" data-slider data-options="start: -1; end: 100; display_selector: #addLOutput;">
-                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                              <span class="range-slider-active-segment"></span>
-                            </div>
-                          </div>
-                          <div class="small-1 medium-1 large-1 columns">
-                            <span id="addLOutput" class="output"></span>
-                          </div>
-                        </div>
-                        <!-- Delay Slider -->
-                        <div class="row">
-                          <span class="small-2 medium-2 large-2 columns slabel">Delay:</span>
-                          <div class="small-9 medium-9 large-9 columns">
-                            <div id="adddelay" class="range-slider" data-slider data-options="display_selector: #addDOutput;">
-                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                              <span class="range-slider-active-segment"></span>
-                            </div>
-                          </div>
-                          <div class="small-1 medium-1 large-1 columns">
-                            <span id="addDOutput" class="output"></span>
-                          </div>
-                        </div>
-                        <!-- Pan Slider -->
-                        <div class="row">
-                          <span class="small-2 medium-2 large-2 columns slabel">Pan:</span>
-                          <div class="small-9 medium-9 large-9 columns">
-                            <div id="addpan" class="range-slider" data-slider data-options="start:-1; end: 1; display_selector: #addPOutput;">
-                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                              <span class="range-slider-active-segment"></span>
-                            </div>
-                          </div>
-                          <div class="small-1 medium-1 large-1 columns">
-                            <span id="addPOutput" class="output"></span>
+                          <div id="addPan" class="panbtn small-10 medium-10 large-10 columns">
+                            <input type="radio" name="addpan" value="-1" id="addLeft" disabled><label for="addLeft">Left</label>
+                            <input type="radio" name="addpan" value="0" id="addCenter" checked disabled><label for="addCenter">Center</label>
+                            <input type="radio" name="addpan" value="1" id="addRight" disabled><label for="addRight">Right</label>
                           </div>
                         </div>
                       </div>
                     </li>
                   </ul>
+                  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                 </div>
 
                 <!-- Edit current playing sounds -->
-                <div id="editSoundOpts" class="large-6 show-for-large-up columns">
-                  <h3>Edit a current sound:</h3>
+                <div id="editSoundOpts" class="reveal-modal medium" data-reveal aria-labelledby="editSoundTitle" aria-hidden="true" role="dialog">
+                  <h3 id="editSoundTitle"><i class="fa fa-fw fa fa-pencil-square-o"></i> Edit a current sound:</h3>
+                  <!-- List of available sounds -->
                   <form>
                     <select id="nowPlaying" multiple="multiple" disabled="disabled" class="select">
-                      <option value="-1">-- No Audio Playing --</option>
+                      <option value="-1">-- No Sounds Playing --</option>
                     </select>
                   </form>
-                  <ul id="editbtns" class="button-group">
-                    <li><a href="#" class="small button disabled"><i class="fa fa-play"></i> Play</a></li>
-                    <li><a href="#" class="small button disabled"><i class="fa fa-stop"></i> Stop</a></li>
-                    <li><a href="#" class="small button disabled"><i class="fa fa-eject"></i> Remove</a></a></li>
-                    <li><a href="#" class="small button disabled"><i class="fa fa-times"></i> Remove All</a></a></li>
+                  <!-- Play/Stop/Remove -->
+                  <ul id="editBtns" class="button-group">
+                    <li><button id="playPauseBtn" class="small button disabled"><i class="fa fa-play"></i> Play</button></li>
+                    <li><button id="stopBtn" class="small button disabled"><i class="fa fa-stop"></i> Stop</button></li>
+                    <li><button id="removeBtn" class="small button disabled"><i class="fa fa-eject"></i> Remove</button></li>
+                    <li><button id="removeAllBtn" class="small button"><i class="fa fa-times"></i> Remove All</button></li>
                   </ul>
-                  <div class="row">
-                    <span class="small-1 medium-1 large-1 columns slabel"><i class="fa fa-volume-up"></i></span>
-                    <div class="small-10 medium-10 large-10 columns">
-                      <div id="editvolume" class="range-slider" data-slider data-options="display_selector: #editVOutput;">
-                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                        <span class="range-slider-active-segment"></span>
-                      </div>
-                    </div>
-                    <div class="small-1 medium-1 large-1 columns">
-                      <span id="editVOutput" class="output"></span>
-                    </div>
-                  </div>
+                
+                  <!-- Advanced Options -->
                   <ul class="accordion small-12 medium-12 large-12 columns" data-accordion="">
                     <li class="accordion-navigation">
-                      <a href="#eadvopts"><i class="fa fa-plus"></i> Advanced Options</a>
-                      <div id="eadvopts" class="content active">
-                        <!-- Loop Slider -->
+                      <a href="#editOpts">Sound Options</a>
+                      <div id="editOpts" class="content active">
+
+                        <!-- Sound Volume -->
                         <div class="row">
-                          <span class="small-2 medium-2 large-2 columns slabel">Loop:</span>
+                          <div class="small-2 medium-2 large-2 columns slabel">Volume:</div>
                           <div class="small-9 medium-9 large-9 columns">
-                            <div id="editloop" class="range-slider" data-slider data-options="start: -1; end: 100; display_selector: #editLOutput;">
+                            <div id="editVolume" class="range-slider disabled" data-slider data-options="display_selector: #editVOutput;">
                               <span class="range-slider-handle" role="slider" tabindex="0"></span>
                               <span class="range-slider-active-segment"></span>
                             </div>
                           </div>
                           <div class="small-1 medium-1 large-1 columns">
-                            <span id="editLOutput" class="output"></span>
+                            <span id="editVOutput" class="output"></span>
                           </div>
                         </div>
-                        <!-- Delay Slider -->
+
+                        <!-- Loop -->
                         <div class="row">
-                          <span class="small-2 medium-2 large-2 columns slabel">Delay:</span>
-                          <div class="small-9 medium-9 large-9 columns">
-                            <div id="editdelay" class="range-slider" data-slider data-options="display_selector: #editDOutput;">
-                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                              <span class="range-slider-active-segment"></span>
-                            </div>
-                          </div>
-                          <div class="small-1 medium-1 large-1 columns">
-                            <span id="editDOutput" class="output"></span>
+                          <div class="small-2 medium-2 large-2 columns slabel">Loop:</div>
+                          <div id="editLoop" class="loopbtn small-10 medium-10 large-10 columns">
+                            <input type="radio" name="editloop" value="-1" id="yesELoop" checked disabled><label for="yesELoop">Yes</label>
+                            <input type="radio" name="editloop" value="1" id="noELoop" disabled><label for="noELoop">No</label>
                           </div>
                         </div>
-                        <!-- Pan Slider -->
+
+                        <!-- Pan -->
                         <div class="row">
-                          <span class="small-2 medium-2 large-2 columns slabel">Pan:</span>
-                          <div class="small-9 medium-9 large-9 columns">
-                            <div id="editpan" class="range-slider" data-slider data-options="start:-1; end: 1; display_selector: #editPOutput;">
-                              <span class="range-slider-handle" role="slider" tabindex="0"></span>
-                              <span class="range-slider-active-segment"></span>
-                            </div>
+                          <div class="small-2 medium-2 large-2 columns slabel">
+                            <span class="has-tip"data-tooltip aria-haspopup="true" title="Pans the sound to the chosen direction">Pan:</span>
                           </div>
-                          <div class="small-1 medium-1 large-1 columns">
-                            <span id="editPOutput" class="output"></span>
+                          <div class="panbtn small-10 medium-10 large-10 columns">
+                            <input type="radio" name="editpan" value="-1" id="editLeft" disabled><label for="editLeft">Left</label>
+                            <input type="radio" name="editpan" value="0" id="editCenter" checked disabled><label for="editCenter">Center</label>
+                            <input type="radio" name="editpan" value="1" id="editRight" disabled><label for="editRight">Right</label>
                           </div>
                         </div>
                       </div>
                     </li>
                   </ul>
+                  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                 </div>
 
                 <!-- Save mix -->
-                <div id="saveOpts" class="large-12 show-for-large-up columns">
-                  <h3>Save this sound mix:</h3>
+                <div id="saveSound" class="reveal-modal medium" data-reveal aria-labelledby="saveSoundTitle" aria-hidden="true" role="dialog">
+                  <h3 id="saveSoundTitle"><i class="fa fa-fw fa-floppy-o"></i> Save this sound mix:</h3>
                   <form>
                     <div class="row"> 
                       <div class="large-12 columns"> 
@@ -236,8 +228,8 @@
                     <div class="row"> 
                       <div class="large-4 columns">
                         <label>Share your mix with others?</label>
-                        <input type="radio" name="public" value="public" id="public"><label for="public">Public</label>
-                        <input type="radio" name="private" value="private" id="private"><label for="private">Private</label>
+                        <input type="radio" name="savetype" value="public" id="public" checked><label for="public">Public</label>
+                        <input type="radio" name="savetype" value="private" id="private"><label for="private">Private</label>
                       </div>
                       <div class="large-8 columns"> 
                         <label>Category</label> 
@@ -248,40 +240,28 @@
                     </div> 
                     <button id="save" class="small button">Save</button>
                   </form>
+                  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                 </div>
               </div>
             </div>
+
+            <!-- If SoundJS is not supported in browser -->
             <div id="error" class="row">
               <div class="small-12 medium-12 large-12 columns">
-                <h2>Error!</h2> Your browser does not support CreateJS
+                <h2>Error!</h2> Your browser does not support SoundJS
               </div> 
             </div>
+
           </section>
-          <footer>
+
+          <!-- Footer copyright -->
+          <div class="full-width copyright-section">
             <div class="row">
-              <div class="small-12 medium-4 large-4 columns">
-                  <h4>Foundation</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</p>
-              </div>
-       
-              <div class="small-12 medium-4 large-4 columns">
-                  <h4>Foundation</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</p>
-              </div>
-       
-              <div class="small-12 medium-4 large-4 columns">
-                  <h4>Foundation</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</p>
-              </div>
+                <div class="small-12 columns">
+                    <p>&copy; 2014</p>
+                </div>
             </div>
-          </footer>
-          <section class="full-width copyright-section">
-              <div class="row">
-                  <div class="small-12 columns">
-                      <p>&copy; 2014</p>
-                  </div>
-              </div>
-          </section>
+          </div>
         </section> 
         <a class="exit-off-canvas"></a> 
       </div> 
@@ -293,20 +273,8 @@
     <script src="js/foundation.min.js"></script>
     <script src="js/foundation/foundation.slider.js"></script>
     <script src="js/foundation/foundation.accordion.js"></script>
+    <script src="js/foundation/foundation.reveal.js"></script>
     <script src="js/circular-slider.js"></script>
     <script src="js/create.js"></script>
-    <script>
-      $(document).foundation();
-      $('#addloop, #editloop').foundation('slider', 'set_value', -1);
-      $('#adddelay, #editdelay').foundation('slider', 'set_value', 0);
-      $('#track0').CircularSlider({
-        radius: 75,
-        innerCircleRatio: '0.1',
-      });
-      $('#track1').CircularSlider({
-        radius: 125,
-        innerCircleRatio: '0.1',
-      });
-    </script>
   </body>
 </html>

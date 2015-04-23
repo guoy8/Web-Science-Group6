@@ -5,4 +5,3 @@
 extern/
 node_modules/
 tmp
-vendor/

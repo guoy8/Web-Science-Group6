@@ -3,7 +3,7 @@ var instances = [];
 var positionInterval;
 var sliders = [];
 var i = 0;
-var sizes = [75, 125, 175, 225, 275];
+var sizes = [65, 100, 135, 170, 205];
 
 function init() {
 	if (!createjs.Sound.initializeDefaultPlugins()) {
@@ -16,8 +16,8 @@ function init() {
 
 	var assetsPath = "sounds/";
 	var sounds = [
-		{id: "evening-forest", src: "188986__dammos__storm-rain.mp3"},
-		{id: "rain-n-frogs", src: "93681__sithjawa__rain-and-frogs-2.mp3"}
+		{id: "storm-rain", src: "188986_dammos_storm-rain.ogg"},
+		{id: "rain-n-frogs", src: "93681_sithjawa_rain-and-frogs-2.ogg"}
 	];
 
 	createjs.Sound.addEventListener("fileload", createjs.proxy(handleLoadComplete, this)); // add an event listener for when load is completed
@@ -42,16 +42,15 @@ function handleLoadComplete(event) {
 	var slider = $('#track' + i).CircularSlider({
 		min: 0,
 		max: Math.floor(instance.getDuration()),
-    radius: sizes[i],
-    innerCircleRatio: '0.1',
-    slide: function(ui, value) {
-    	instance.setPosition(value);
-    }
-  });
+	    radius: sizes[i],
+	    innerCircleRatio: '0.1',
+	    slide: function(ui, value) {
+	    	instance.setPosition(value);
+	    }
+	});
 
-  sliders.push(slider);
-
-  i += 1;
+	sliders.push(slider);
+	i += 1;
 	
 	$("#playSound i").removeClass("fa-play").addClass("fa-pause");
 
@@ -78,7 +77,6 @@ $("#playSound").click(function(event) {
 
 });
 
-var dragOffset;
 function trackTime() {
 	positionInterval = setInterval(function (event) {
 		for (var j = 0; j < instances.length; j++) {

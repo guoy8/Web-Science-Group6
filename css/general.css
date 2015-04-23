@@ -7,6 +7,7 @@ body {
     background: url("../img/black-light-background.png") no-repeat center center fixed;
     background-repeat: cover;
     /*background-color: #080808;*/
+    min-width:500px;
 }
 h1 {
     font-family: 'Arimo', sans-serif;
@@ -32,6 +33,9 @@ h4 {
     -moz-transition: background .25s ease-in-out;
     -webkit-transition: background .25s ease-in-out;
 }
+.tab-bar {
+  height: 3rem !important;
+}
 .top-bar li {
     text-transform: uppercase;
 }
@@ -51,20 +55,29 @@ h4 {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 0;
+  height: 0;
 }
 #tracks {
-  height: 32em;
+  height: 40em;
   margin-bottom: 1em;
 }
 #track0 {
-  margin: -75px -82px;
+  margin: -65px -70px;
 } #track1 {
-  margin: -130px -137px
+  margin: -104px -108px;
+} #track2 {
+  margin: -142px -145px;
+} #track3 {
+  margin: -183px -183px;
+} #track4 {
+  margin: -222px -222px;
 }
+
 .centerbtn {
   position: relative;
-  top: -22px;
-  left: -42px;
+  top: -19px;
+  left: -38px;
   font-size: 1.5em !important;
   border-radius: 10em;
   background-color: #22303A;
