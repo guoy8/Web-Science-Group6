@@ -103,17 +103,17 @@
         <!-- Show 3 random mixes -->
         <div class="row">
           <div class="large-4 columns">
-            <img src="img/playground.jpg"/>
+            <img id="sm_img1" src="img/playground.jpg"/>
             <h4>POURING RAIN</h4>
           </div>
           
           <div class="large-4 columns">
-            <img src="http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg"/>
+            <img id="sm_img2" src="http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg"/>
             <h4>MIGRATING BIRDS</h4>
           </div>
           
           <div class="large-4 columns">
-            <img src="https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg"/>
+            <img id="sm_img3" src="https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg"/>
             <h4>RUSHING WATER</h4>
           </div>
         </div>
@@ -153,6 +153,7 @@
     <script src="js/foundation.min.js"></script>
     <script src="js/circular-slider.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/weather.js"></script>
     <script>
       $(document).foundation();
     </script>
