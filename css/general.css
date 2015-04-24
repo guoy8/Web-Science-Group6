@@ -47,6 +47,22 @@ h4 {
     background-color: #22303A !important;
     color: #FFF !important;
 }
+.text {
+    color: #FFF;
+    padding: 0.66667rem;
+    text-transform: capitalize;
+}
+.indent {
+  padding-left: 1rem;
+}
+.username {
+  padding-bottom: 0;
+  text-transform: none;
+}
+.username span {
+  color: #DDD;
+  font-weight: bold;
+}
 
 #error {
   display: none;

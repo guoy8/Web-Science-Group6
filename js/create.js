@@ -82,11 +82,16 @@ function init() {
 	// Add sounds
 	var assetsPath = "sounds/";
 	var sounds = [
-		{id: "Storm Rain", src: "188986_dammos_storm-rain.ogg"},
-		{id: "Rain and Frogs", src: "93681_sithjawa_rain-and-frogs-2.ogg"},
-		{id: "Thunderstorm", src: "2523_rhumphries_rbh-thunder-storm.ogg"},
-		{id: "Evening in the Forest", src: "18765_reinsamba_evening-in-the-forest.ogg"},
-		{id: "Wind and Soft Crickets", src: "163607_leandros-ntounis_wind-soft-crickets.ogg"}
+		{id: "Beach Waves at Praia Grande", src: "beach/beach_waves_at_praia_grande.ogg"},
+		{id: "Broken Top Creek", src: "brook/broken_top_creek.ogg"},
+		{id: "Babbling Brook", src: "brook/babbling_brook.ogg"},
+		{id: "Large Campfire", src: "campfire/large_campfire.ogg"},
+		{id: "Quiet Autumn Campfire", src: "campfire/quiet_autumn_campfire.ogg"},
+		{id: "Cedar Campfire", src: "campfire/cedar_campfire.ogg"},
+		{id: "Wind Blowing in a Field", src: "wind/wind_blowing_in_a_field.ogg"},
+		{id: "Northern Cold Wind Chimes", src: "windchimes/northern_cold_wind_chimes.ogg"},
+		{id: "Five Rake Large Wind Chimes", src: "windchimes/five_rake_large_wind_chimes.ogg"},
+		{id: "Nearby Wind Chimes", src: "windchimes/nearby_wind_chimes.ogg"}
 	];
 
 	// Using PreloadJS, add sound to library list
@@ -111,7 +116,7 @@ function init() {
 // Adds sound to library
 function addSoundToList(event) {
 	var list = $("#library").get(0);
-	console.log("addtolist: " + event.id);
+	// console.log("addtolist: " + event.id);
 	list.options.add(new Option((event.id || event.src), event.id)); 
 }
 
@@ -120,7 +125,7 @@ var pause = false;
 function masterPlayPause(event) {
 	if (slidersId.length === 5) { return; }
 	pause = !pause;
-	console.log("Want to pause all songs: " + pause);
+	// console.log("Want to pause all songs: " + pause);
 	if (pause) {
 		$("#playAll i").removeClass("fa-pause").addClass("fa-play");
 	} else {
@@ -128,7 +133,7 @@ function masterPlayPause(event) {
 	}
 	for (var key in instanceHash) {
 	   	if (instanceHash.hasOwnProperty(key)) {
-	   		console.log("masterplaypause: " + key);
+	   		// console.log("masterplaypause: " + key);
 	    	var obj = instanceHash[key];
 	    	// If user wishes to pause all sounds and sound is not finished
 	    	if (pause && obj.playState != createjs.Sound.PLAY_FINISHED) {
@@ -179,7 +184,7 @@ function selectNew(event) {
 function previewSound(event) {
 	// Get selected element
 	var selected = $("#library").find(":selected").text();
-	if (previewInstance != null) {  console.log("The previous previewInstance id is " + previewInstance.name); }
+	// if (previewInstance != null) {  console.log("The previous previewInstance id is " + previewInstance.name); }
 	// If no preview instance is playing or a new instance is selected
 	if (previewInstance === null || selected != previewInstance.name) {
 		// Stop previous instance if it exists
@@ -189,7 +194,7 @@ function previewSound(event) {
 		// Get the new selected sound and play
 		var instance = createjs.Sound.createInstance(selected);
 		instance.name = selected;
-		console.log("Previewing sound: " + instance.name);
+		// console.log("Previewing sound: " + instance.name);
 		instance.volume = $("#addVolume").attr('data-slider') / 100;
 		instance.loop = $("input[name='addloop']:checked").val();
 		instance.pan = $("input[name='addpan']:checked").val();
@@ -239,7 +244,7 @@ function addSound(event) {
 
 	// Stop the preview
 	if (previewInstance != null) {
-		console.log("Stopping preview of " + previewInstance.name);
+		// console.log("Stopping preview of " + previewInstance.name);
 		previewInstance.stop();
 		previewInstance = null;
 		$("#previewBtn").html("<i class='fa fa-play'></i> Preview");
@@ -272,9 +277,9 @@ function addSound(event) {
 		instance.loop = $("input[name='addloop']:checked").val();
 		instance.name = item.text;
 		instance.id = slidersId[0];
-		console.log("Adding sound: " + item.text + " with id " + instance.id);
+		// console.log("Adding sound: " + item.text + " with id " + instance.id);
 		slidersId.splice(0, 1);
-		console.log("remaining ids: " + slidersId);
+		// console.log("remaining ids: " + slidersId);
 
 		// Save instance
 		instanceHash[instance.id] = instance;
@@ -308,7 +313,7 @@ function addSound(event) {
 
 function handlePlaySuccess(event) {
 	var instance = event.target;
-	console.log("handleplaysuccess: " + instance.id);
+	// console.log("handleplaysuccess: " + instance.id);
 	instance.removeEventListener("succeeded", instance.handleSuccessProxy);
 	delete(instance.handleSuccessProxy);
 
@@ -389,7 +394,7 @@ function selectCurrent(event) {
 		}
 
 		// Highlight corresponding position slider
-		console.log("Selected sliderId: " + sliders[instance.id].attr('id'));
+		// console.log("Selected sliderId: " + sliders[instance.id].attr('id'));
 		var sid = sliders[instance.id].attr('id');
 		highlight(sid);
 
@@ -442,9 +447,9 @@ function soundStatus(instance) {
 function playPause(event) {
 	var instance = getCurrentSound();
 	if (instance === null) { return; }
-	console.log("Want to play currentSound: " + instance.name + " with id: " + instance.id);
+	// console.log("Want to play currentSound: " + instance.name + " with id: " + instance.id);
 	var status = soundStatus(instance);
-	console.log("Sound status: " + status);
+	// console.log("Sound status: " + status);
 	if (status === "paused") {
 		instance.resume();
 		$("#playPauseBtn").html('<i class="fa fa-pause"></i> Pause</button>');
@@ -461,7 +466,7 @@ function playPause(event) {
 function stopCurrent(event) {
 	var instance = getCurrentSound();
 	if (instance != null) { 
-		console.log("Want to stop: " + instance.name);
+		// console.log("Want to stop: " + instance.name);
 		instance.stop(); 
 		if ($("#playPauseBtn i").hasClass("fa-pause")) {
 			$("#playPauseBtn").html('<i class="fa fa-play"></i> Play</button>');
@@ -474,7 +479,7 @@ function removeOne(event) {
 	var instance = getCurrentSound();
 	if (instance == null) { return; }
 	instance.stop();
-	console.log("Want to remove: " + instance.name);
+	// console.log("Want to remove: " + instance.name);
 	removeSound(instance);
 }
 
@@ -537,7 +542,7 @@ function removeAllSound(instance) {
 	for (var j = list.options.length - 1; j >= 0; j--) {
 		// Instance id
 		var iid = list.options[j].value;
-		console.log("Removing song with id: " + iid);
+		// console.log("Removing song with id: " + iid);
 
 		// Remove from list
 		if (list.options.remove) { list.options.remove(j); }
@@ -554,7 +559,7 @@ function removeAllSound(instance) {
 	    // Return sliderId
 		slidersId.push(iid);
 		slidersId.sort();
-		console.log("available slidersId: " + slidersId);
+		// console.log("available slidersId: " + slidersId);
 	}
 
 	// Disable edit buttons 
@@ -585,5 +590,93 @@ function handleEditChange(type, val) {
 	}
 }
 
-// Show modals
+// Save mix
+function saveMix() {
+	// get JSON of current playing sounds
+	function jsonCurrent() {
+		//{'mixes': [{}, {}]}
+		var json = {};
+		var mixes = [];
+		for (var key in instanceHash) {
+			if (instanceHash.hasOwnProperty(key)) {
+				var obj = instanceHash[key];
+				var mix = {};
+				mix["name"] = obj.name;
+				mix["loop"] = obj.loop;
+				mix["volume"] = obj.volume;
+				mix["pan"] = obj.pan;
+				mixes.push(mix);
+			}
+		}
+		json["mixes"] = mixes;
+		return JSON.stringify(json, null, 2);
+	}
+	var name = $("#soundname").val();
+	if (name.length === 0) {
+		$("#saveSound .newly-added").remove();
+		$("#saveSound").prepend(
+			'<div data-alert class="newly-added alert-box alert radius">' +
+			'Please name this mix.</div>'
+		);
+		return;
+	}
+	var share = ($("input[type='radio'][name='savetype']:checked").val() === "public") ? 0 : 1;
+	var categories = $('input[type="checkbox"][name="category"]:checked').map(function() {
+	    return this.value;
+	}).get().join(",");
+	var json = jsonCurrent();
+	console.log(json);
+	$.ajax({
+      	type: "POST",
+      	url: "saveMix.php",
+      	data: {
+      			title : name,
+      			share : share,
+      			categories : categories,
+      			mixes : json
+     	}, 
+      	success: function(data) {
+        	console.log(data); 
+        	console.log(data.msg);
+        	data = JSON.parse(data);
+        	console.log(data.msg);
+        	if (data.msg === "error") {
+        		$("#saveSound .newly-added").remove();
+        		$("#saveSound").prepend(
+        			'<div data-alert class="newly-added alert-box alert radius">' +
+  					'Please log in to save a mix.</div>'
+  				);
+        	} else if (data.msg === "saved") {
+        		$("#saveSound .newly-added").remove();
+        		$("#saveSound").prepend(
+        			'<div data-alert class="newly-added alert-box success radius">' +
+  					'Mix saved successfully.</div>'
+  				);
+        	}
+      	}
+    });
+}
 
+// Load mix
+function getMix() {
+	$.ajax({
+      	dataType: "JSON",
+      	url: "fetchMix.php",
+      	success: function(data) {
+      		console.log(data);
+        	if (data.msg === "error") {
+        		$("#addSoundOpts .newly-added").remove();
+        		$("#addSoundOpts").prepend(
+        			'<div data-alert class="newly-added alert-box alert radius">' +
+  					'Please log in to save a mix.</div>'
+  				);
+        	} else if (data.msg === "saved") {
+        		$("#addSoundOpts .newly-added").remove();
+        		$("#addSoundOpts").prepend(
+        			'<div data-alert class="newly-added alert-box success radius">' +
+  					'Got mixes.</div>'
+  				);
+        	}
+      	}
+    });
+}

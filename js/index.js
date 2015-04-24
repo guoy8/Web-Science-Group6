@@ -16,8 +16,8 @@ function init() {
 
 	var assetsPath = "sounds/";
 	var sounds = [
-		{id: "storm-rain", src: "188986_dammos_storm-rain.ogg"},
-		{id: "rain-n-frogs", src: "93681_sithjawa_rain-and-frogs-2.ogg"}
+		{id: "Northern Cold Windchimes", src: "windchimes/northern_cold_wind_chimes.ogg"},
+		{id: "Beach Waves at Praia Grande", src: "beach/beach_waves_at_praia_grande.ogg"}
 	];
 
 	createjs.Sound.addEventListener("fileload", createjs.proxy(handleLoadComplete, this)); // add an event listener for when load is completed

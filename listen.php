@@ -4,22 +4,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
-    <title>.wavpool Listen</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/foundation.min.css" />
-<!--     <link rel="stylesheet" href="css/general.css" /> -->
-    <link rel="stylesheet" href="css/listen.css" />
-=======
     <title>.wavpool // Listen</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.min.css" />
     <link rel="stylesheet" href="css/general.css" />
->>>>>>> 0c37ac04679d9356ddcb4d50b997c97594f4c242
+    <link rel="stylesheet" href="css/listen.css" />
     <link rel="stylesheet" href="css/home.css" />
 
   </head>
@@ -31,16 +20,18 @@
           <nav class="top-bar" data-topbar>
             <ul class="title-area">
               <li class="name">
-               <img src="img/logo.png"/>
+                <a href="index.php">
+                  <img src="img/logo.png" alt=".wavpool"/>
+                </a>
               </li>
             </ul>
             <section class="top-bar-section">
               <ul class="right">
-                <li><a href="index.html">Home</a></li>
-                <li class="active"><a href="listenpage.html">Listen</a></li>
-                <li><a href="create.html">Create</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="register.html">Login/Register</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li class="active"><a href="listen.php">Listen</a></li>
+                <li><a href="create.php">Create</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="register.php">Login/Register</a></li>
               </ul>
             </section>
           </nav>
@@ -54,7 +45,9 @@
       <div class="inner-wrap"> 
         <nav class="tab-bar hide-for-large-up"> 
           <section class="middle tab-bar-section"> 
-            <h1 class="title">.wavpool</h1> 
+            <a href="index.php">
+              <img src="img/logo.png" alt=".wavpool"/>
+            </a>
           </section> 
           <section class="right-small"> 
             <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a> 
@@ -62,50 +55,17 @@
         </nav> 
         <aside class="right-off-canvas-menu"> 
           <ul class="off-canvas-list"> 
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="listen.html">Listen</a></li>
-            <li><a href="create.html">Create</a></li>
-            <li><a href="register.html">Login/Register</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li class="active"><a href="listen.php">Listen</a></li>
+            <li><a href="create.php">Create</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="register.php">Login/Register</a></li>
           </ul> 
         </aside> 
-<<<<<<< HEAD
-         <div class="row">
-        <div class="large-12 columns">
-        <div id="slider">
-          <img src="css/fields.jpg"/>
-        </div>
-        </div>
-      </div>
-      
-     
-     
-      <div class="row">
-        <div class="large-4 columns">
-          <img src="http://images.forwallpaper.com/files/thumbs/preview/21/212749__rain-droplets-water-mood-photo-macro-black-and-white-wallpaper_p.jpg"/>
-          <button id="playSound" class="centerbtn small"><i class="fa fa-fw fa-play"></i></button>
-          <h4>POURING RAIN</h4>
-        </div>
-        
-        <div class="large-4 columns">
-          <img src="http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg"/>
-          <h4>MIGRATING BIRDS</h4>
-        </div>
-        
-        <div class="large-4 columns">
-          <img src="https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg"/>
-          <h4>RUSHING WATER</h4>
-        </div>
-=======
         <!-- Start of Content -->
-        <div class="row">
-          <div class="large-12 columns">
-          <div id="slider">
-            <img src="img/fields.jpg"/>
-          </div>
-          </div>
->>>>>>> 0c37ac04679d9356ddcb4d50b997c97594f4c242
-        </div>
+        <h1 class="row">Listen</h1>
 
+        <h2 class="row">Sound Library</h2>
         <div class="row">
           <div class="large-4 columns">
             <img src="http://images.forwallpaper.com/files/thumbs/preview/21/212749__rain-droplets-water-mood-photo-macro-black-and-white-wallpaper_p.jpg"/>
@@ -129,22 +89,15 @@
             <h4>COZY FIREPLACE</h4>
           </div>
 
-<<<<<<< HEAD
-        <div class="large-4 columns">
-        <img src="http://s28.postimg.org/9k5s6e4gd/countrysidecidadas.jpg"/>
-          <h4>COUNTRYSIDE CIDADAS</h4>
-        </div>
-=======
           <div class="large-4 columns">
             <img src="http://i61.tinypic.com/wsn1ja.jpg"/>
             <h4>OCEAN BLUES</h4>
           </div>
 
           <div class="large-4 columns">
-            <img src="http://images.forwallpaper.com/files/thumbs/preview/21/212749__rain-droplets-water-mood-photo-macro-black-and-white-wallpaper_p.jpg"/>
+            <img src="http://s28.postimg.org/9k5s6e4gd/countrysidecidadas.jpg"/>
             <h4>COUNTRYSIDE CIDADAS</h4>
           </div>
->>>>>>> 0c37ac04679d9356ddcb4d50b997c97594f4c242
         </div>
 
         <div class="row">

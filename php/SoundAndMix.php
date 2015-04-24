@@ -11,7 +11,7 @@ class SoundAndMixes
 	protected $allowTypes=['mp3','ogg'];
 	const USERTABLENAME="users";
 	const MIXTABLENAME="mixes";
-	const MIXOWNERTABLENAME="mixesowner";
+	const MIXOWNERTABLENAME="mixesOwner";
 	const MAXSIZE=1000000;
 
 
@@ -51,6 +51,7 @@ class SoundAndMixes
 			$this->connection->InsertRow(self::MIXOWNERTABLENAME,
 				['uid','mid'],
 				[$this->uid,$mid]);
+			return $this->uid.$mid;
 		}
 		
 		
@@ -71,11 +72,13 @@ class SoundAndMixes
 		//var_dump($Allmixes[0][0]['mix']);
 		//echo json_encode($Allmixes[0][0]['mix']);
 		$allMix=[];
-		for($i=0;$i<count($Allmixes);$i++)
+		for($i=1;$i<count($Allmixes);$i++)
 		{
 			array_push($allMix, json_decode($Allmixes[$i][0]['mix']));
+			
 		}
 		//echo json_encode($allMix);
+		
 		return $allMix;
 	}	
 

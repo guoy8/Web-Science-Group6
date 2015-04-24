@@ -11,8 +11,8 @@ if(isset($_POST) and !empty($_POST))
     echo $user->getErrMessage();
   }else
   {
-    echo "<script type='text/javascript'>alert('Now you are in!jump to login page');</script>";
-    header("Refresh: 3; URL=login.php?email={$username}");
+    echo "<script type='text/javascript'>alert('Now you are in! Jump to login page');</script>";
+    header("Refresh: 0; URL=login.php?email={$username}");
   }
 }
 ?>
@@ -41,18 +41,18 @@ if(isset($_POST) and !empty($_POST))
           <nav class="top-bar" data-topbar>
             <ul class="title-area">
               <li class="name">
-                <a href="index.html">
+                <a href="index.php">
                   <img src="img/logo.png" alt=".wavpool"/>
                 </a>
               </li>
             </ul>
             <section class="top-bar-section">
               <ul class="right">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="listen.html">Listen</a></li>
-                <li><a href="create.html">Create</a></li>
-                <li><a href="about.html">About</a></li>
-                <li class="active"><a href="register.html">Login/Register</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="listen.php">Listen</a></li>
+                <li><a href="create.php">Create</a></li>
+                <li><a href="about.php">About</a></li>
+                <li class="active"><a href="register.php">Login/Register</a></li>
               </ul>
             </section>
           </nav>
@@ -64,7 +64,7 @@ if(isset($_POST) and !empty($_POST))
         <nav class="tab-bar hide-for-large-up"> 
           <section class="middle tab-bar-section"> 
             <h1 class="title">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="img/logo.png" alt=".wavpool"/>
               </a>
             </h1>  
@@ -75,11 +75,11 @@ if(isset($_POST) and !empty($_POST))
         </nav> 
         <aside class="right-off-canvas-menu"> 
           <ul class="off-canvas-list"> 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="listen.html">Listen</a></li>
-            <li><a href="create.html">Create</a></li>
-            <li><a href="about.html">About</a></li>
-            <li class="active"><a href="register.html">Login/Register</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="listen.php">Listen</a></li>
+            <li><a href="create.php">Create</a></li>
+            <li><a href="about.php">About</a></li>
+            <li class="active"><a href="register.php">Login/Register</a></li>
           </ul> 
         </aside>
         <!-- END TOP BAR -->
@@ -118,7 +118,7 @@ if(isset($_POST) and !empty($_POST))
                   </div>
                   <input type="submit" href="#" class="button " value="Sign Up!"> 
                 </form>
-                <p>Already registered? Click <a href="login.html">here</a> to sign in</p>
+                <p>Already registered? Click <a href="login.php">here</a> to sign in</p>
               </div>
             </div>
            </div></p>

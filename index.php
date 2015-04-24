@@ -7,42 +7,47 @@
     <title>.wavpool // ambient sound mixer</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../css/foundation.min.css" />
-    <!--<link rel="stylesheet" href="../css/general.css" />!-->
-    <link rel="stylesheet" href="../css/home2.css" />
+    <link rel="stylesheet" href="css/foundation.min.css" />
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/home.css" />
   </head>
   <body onload="init()">
+  <!-- Start of large navigation bar -->
+  <!-- NOTE: The "active" class has to be changed based on the page -->
     <section class="navigation-section show-for-large-up">
       <div class="row">
         <div class="large-12 columns">
           <nav class="top-bar" data-topbar>
             <ul class="title-area">
               <li class="name">
-                <a href="index.html">
-                  <img src="../img/logo.png" alt=".wavpool"/>
+                <a href="index.php">
+                  <img src="img/logo.png" alt=".wavpool"/>
                 </a>
               </li>
             </ul>
             <section class="top-bar-section">
               <ul class="right">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="listen.html">Listen</a></li>
-                <li><a href="create.html">Create</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="register.html">Login/Register</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="listen.php">Listen</a></li>
+                <li><a href="create.php">Create</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="register.php">Login/Register</a></li>
               </ul>
             </section>
           </nav>
         </div>
       </div>
     </section>
+    <!-- End of large navigation bar -->
+
+    <!-- Start of wrap-around aside navigation bar -->
     <div class="off-canvas-wrap" data-offcanvas> 
       <div class="inner-wrap"> 
         <nav class="tab-bar hide-for-large-up"> 
           <section class="middle tab-bar-section"> 
             <h1 class="title">
-              <a href="index.html">
-                <img src="../img/logo.png" alt=".wavpool"/>
+              <a href="index.php">
+                <img src="img/logo.png" alt=".wavpool"/>
               </a>
             </h1> 
           </section> 
@@ -52,14 +57,15 @@
         </nav> 
         <aside class="right-off-canvas-menu"> 
           <ul class="off-canvas-list"> 
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="listen.html">Listen</a></li>
-            <li><a href="create.html">Create</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="register.html">Login/Register</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
+            <li><a href="listen.php">Listen</a></li>
+            <li><a href="create.php">Create</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="register.php">Login/Register</a></li>
           </ul> 
         </aside> 
 
+    <!-- Start of Content -->
         <section id="example" class="row">
           <div id="tracks" class="small-12 medium-12 large-12 columns">
             <div id="track1" class="center"></div>
@@ -79,35 +85,37 @@
               </p>
           </div>
         </section>
-        <div class="row">
-        <div class="large-12 columns">
-        <div id="slider">
-          <img src="../img/sunny_treetops.jpg"/>
-        </div>
-        
+
         <hr/>
+
+        <!-- Weather API -->
+        <div class="row panel">
+          <div class="small-8 columns">
+            <img src="http://superdevresources.com/wp-content/uploads/sites/7/2014/02/Weather-Api.jpg">
+          </div>
+          <p class="small-4 columns">
+            <strong>Sound of the Day</strong>
+            <br>
+            .WAV Pool's weather API is unlike any other weather API where we will use advanced technology to locate the weather of your current location and formulate an output of the opposite weather condition. 
+          </p>
         </div>
-      </div>
-        <hr/>
+
+        <!-- Show 3 random mixes -->
         <div class="row">
           <div class="large-4 columns">
-            <img src="../img/bee.jpg"/>
+            <img src="img/playground.jpg"/>
             <h4>POURING RAIN</h4>
-            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
           </div>
           
           <div class="large-4 columns">
-            <img src="../img/playground.jpg"/>
+            <img src="http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg"/>
             <h4>MIGRATING BIRDS</h4>
-            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
           </div>
           
           <div class="large-4 columns">
-            <img src="../img/park_fountain.jpg"/>
+            <img src="https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg"/>
             <h4>RUSHING WATER</h4>
-            <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
           </div>
-        
         </div>
         
      
@@ -139,12 +147,12 @@
       </div>
     </div>
 
-    <script src="../js/vendor/modernizr.js"></script>
+    <script src="js/vendor/modernizr.js"></script>
     <script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
-    <script src="../js/vendor/jquery.js"></script>
-    <script src="../js/foundation.min.js"></script>
-    <script src="../js/circular-slider.js"></script>
-    <script src="../js/index.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/circular-slider.js"></script>
+    <script src="js/index.js"></script>
     <script>
       $(document).foundation();
     </script>
