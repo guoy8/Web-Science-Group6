@@ -67,15 +67,15 @@ class SoundAndMixes
 		{
 			$mix=$this->connection->SearchForRow(self::MIXTABLENAME,'*',['id'],[$JsonArray[$i]['mid']]);
 			array_push($Allmixes,$mix);
-
 		}
 		//var_dump($Allmixes[0][0]['mix']);
 		//echo json_encode($Allmixes[0][0]['mix']);
 		$allMix=[];
-		for($i=1;$i<count($Allmixes);$i++)
+		for($i=0;$i<count($Allmixes);$i++)
 		{
-			array_push($allMix, json_decode($Allmixes[$i][0]['mix']));
-			
+			$temp = json_decode($Allmixes[$i][0]['mix'], true);
+			$temp['name'] = $Allmixes[$i][0]['name'];
+			array_push($allMix, $temp);
 		}
 		//echo json_encode($allMix);
 		

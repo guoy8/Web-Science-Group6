@@ -97,7 +97,7 @@ if(isset($_POST) and !empty($_POST))
                       <span class="prefix"><i class="fi-torso"></i></span>
                     </div>
                     <div class="small-10  columns">
-                      <input name="fullname" type="text" placeholder="Full Name" name="fullname">
+                      <input name="fullname" type="text" placeholder="Username" name="fullname">
                     </div>
                   </div>
                   <div class="row collapse">
