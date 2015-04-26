@@ -66,6 +66,7 @@ function init() {
 
 	// When user selects a new sound... 
 	$("#library").change(selectNew);
+	$("#mixLibrary").change(selectNewMix);
 	// When user selects a current playing sound...
 	$("#nowPlaying").change(selectCurrent);
 
@@ -80,23 +81,21 @@ function init() {
 	$("#removeAllBtn").click(removeAll);
 
 	// Add sounds
-	var assetsPath = "sounds/";
-	var sounds = [
-		{id: "Beach Waves at Praia Grande", src: "beach/beach_waves_at_praia_grande.ogg"},
-		{id: "Broken Top Creek", src: "brook/broken_top_creek.ogg"},
-		{id: "Babbling Brook", src: "brook/babbling_brook.ogg"},
-		{id: "Large Campfire", src: "campfire/large_campfire.ogg"},
-		{id: "Quiet Autumn Campfire", src: "campfire/quiet_autumn_campfire.ogg"},
-		{id: "Cedar Campfire", src: "campfire/cedar_campfire.ogg"},
-		{id: "Wind Blowing in a Field", src: "wind/wind_blowing_in_a_field.ogg"},
-		{id: "Northern Cold Wind Chimes", src: "windchimes/northern_cold_wind_chimes.ogg"},
-		{id: "Five Rake Large Wind Chimes", src: "windchimes/five_rake_large_wind_chimes.ogg"},
-		{id: "Nearby Wind Chimes", src: "windchimes/nearby_wind_chimes.ogg"}
-	];
-
-	// Using PreloadJS, add sound to library list
-	createjs.Sound.addEventListener("fileload", createjs.proxy(addSoundToList, this)); // add an event listener for when load is completed
-	createjs.Sound.registerSounds(sounds, assetsPath);
+	var queue = new createjs.LoadQueue();
+	queue.installPlugin(createjs.Sound);
+	queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
+	queue.loadManifest([
+	    {id: "Beach Waves at Praia Grande", src: "sounds/beach/beach_waves_at_praia_grande.ogg"},
+		{id: "Broken Top Creek", src: "sounds/brook/broken_top_creek.ogg"},
+		{id: "Babbling Brook", src: "sounds/brook/babbling_brook.ogg"},
+		{id: "Large Campfire", src: "sounds/campfire/large_campfire.ogg"},
+		{id: "Quiet Autumn Campfire", src: "sounds/campfire/quiet_autumn_campfire.ogg"},
+		{id: "Cedar Campfire", src: "sounds/campfire/cedar_campfire.ogg"},
+		{id: "Wind Blowing in a Field", src: "sounds/wind/wind_blowing_in_a_field.ogg"},
+		{id: "Northern Cold Wind Chimes", src: "sounds/windchimes/northern_cold_wind_chimes.ogg"},
+		{id: "Five Rake Large Wind Chimes", src: "sounds/windchimes/five_rake_large_wind_chimes.ogg"},
+		{id: "Nearby Wind Chimes", src: "sounds/windchimes/nearby_wind_chimes.ogg"}
+	]);
 
 	// Set master volume to 50%
 	// createjs.Sound.setVolume(50 / 100);
@@ -117,7 +116,7 @@ function init() {
 function addSoundToList(event) {
 	var list = $("#library").get(0);
 	// console.log("addtolist: " + event.id);
-	list.options.add(new Option((event.id || event.src), event.id)); 
+	list.options.add(new Option((event.item.id || event.item.src), event.item.id)); 
 }
 
 // Play/pause all sounds 
@@ -154,7 +153,7 @@ function masterPlayPause(event) {
 
 function trackTime(key) {
 	clearInterval(posIntervals[key]);
-	positionInterval = setInterval(function (event) {
+	var positionInterval = setInterval(function (event) {
 		if (sliders.hasOwnProperty(key)) {
 		    var obj = sliders[key];
 			obj.setValue(Math.floor(instanceHash[key].getPosition()));
@@ -233,10 +232,53 @@ function handleAddChange(type, val) {
 		previewInstance.setPan(val);
 	}
 }
+// Create sound and its slider 
+function createSound(name, volume, pan, loop) {
+	var instance = createjs.Sound.createInstance(name);
+	instance.handleSuccessProxy = createjs.proxy(handlePlaySuccess, instance);	// OJR kind of hacky
+	instance.addEventListener("succeeded", instance.handleSuccessProxy);
+	instance.addEventListener("interrupted", createjs.proxy(handlePlayFailed,instance));
+	instance.addEventListener("failed", createjs.proxy(handlePlayFailed,instance));
+	
+	// Get and save the values of id, volume, pan, loop
+	instance.volume = volume;
+	instance.pan = pan;
+	instance.loop = loop;
+	instance.name = name;
+	instance.id = slidersId[0];
+	// console.log("Adding sound: " + item.text + " with id " + instance.id);
+	slidersId.splice(0, 1);
+	// console.log("remaining ids: " + slidersId);
 
+	// Save instance
+	instanceHash[instance.id] = instance;
+
+	// Create the slider
+	var slider = $('#track' + instance.id).CircularSlider({
+		min: 0,
+		max: Math.floor(instance.getDuration()),
+	    radius: sizes[instance.id],
+	    innerCircleRatio: '0.1',
+	    slide: function(ui, value) {
+	    	instance.setPosition(value);
+	    }
+	});
+	slider.id = instance.id;
+	sliders[instance.id] = slider;
+	trackTime(instance.id);
+
+	// Don't play instance if paused
+	if (pause) { 
+		instance.setVolume = instance.volume;
+		instance.setPan = instance.pan;
+	}
+	// Play instance
+	else { 
+		instance.play({ loop: instance.loop, pan: instance.pan, volume: instance.volume });
+		$("#playAll i").removeClass("fa-play").addClass("fa-pause");
+	}
+}
 // Adds sound to current playing
-var i = 0;	
-var positionInterval;
 function addSound(event) {
 	// Verify an item exists in list.
 	var list = $("#library").get(0);
@@ -262,52 +304,13 @@ function addSound(event) {
 	// Get selected instance(s)
 	for (var j = 0, l = list.options.length; j < l; j++) {
 		if (!list.options[j].selected) { continue; }
-
 		var item = list.options[j];
 		// Create the sound instance
-		var instance = createjs.Sound.createInstance(item.value);
-		instance.handleSuccessProxy = createjs.proxy(handlePlaySuccess, instance);	// OJR kind of hacky
-		instance.addEventListener("succeeded", instance.handleSuccessProxy);
-		instance.addEventListener("interrupted", createjs.proxy(handlePlayFailed,instance));
-		instance.addEventListener("failed", createjs.proxy(handlePlayFailed,instance));
-		
-		// Get and save the values of id, volume, pan, loop
-		instance.volume = $("#addVolume").attr('data-slider') / 100;
-		instance.pan = $("input[name='addpan']:checked").val();
-		instance.loop = $("input[name='addloop']:checked").val();
-		instance.name = item.text;
-		instance.id = slidersId[0];
-		// console.log("Adding sound: " + item.text + " with id " + instance.id);
-		slidersId.splice(0, 1);
-		// console.log("remaining ids: " + slidersId);
-
-		// Save instance
-		instanceHash[instance.id] = instance;
-
-		// Create the slider
-		var slider = $('#track' + instance.id).CircularSlider({
-			min: 0,
-			max: Math.floor(instance.getDuration()),
-		    radius: sizes[instance.id],
-		    innerCircleRatio: '0.1',
-		    slide: function(ui, value) {
-		    	instance.setPosition(value);
-		    }
-		});
-		slider.id = instance.id;
-		sliders[instance.id] = slider;
-		trackTime(instance.id);
-
-		// Don't play instance if paused
-		if (pause) { 
-			instance.setVolume = instance.volume;
-			instance.setPan = instance.pan;
-		}
-		// Play instance
-		else { 
-			instance.play({ loop: instance.loop, pan: instance.pan, volume: instance.volume });
-			$("#playAll i").removeClass("fa-play").addClass("fa-pause");
-		}
+		var name = item.value;
+		var volume = $("#addVolume").attr('data-slider') / 100;
+		var pan = $("input[name='addpan']:checked").val();
+		var loop = $("input[name='addloop']:checked").val();
+		createSound(name, volume, pan, loop);
 	}
 }
 
@@ -340,9 +343,59 @@ function handlePlaySuccess(event) {
 }
 
 // Playback failed (usually interrupt failed)
-function handlePlayFailed(event) {
-	removeSound(event.target);
+function handlePlayFailed(event) { removeSound(event.target); }
+
+
+/*
+ * Load Sound
+ */
+
+function selectNewMix(event) {
+	var list = $("#mixLibrary").get(0);
+	if (list.selectedIndex != -1) {
+		$("#loadBtn").removeClass("disabled");
+		$("#loadBtn").prop("disabled", false);
+	} else {
+		$("#loadBtn").addClass("disabled");
+		$("#loadBtn").prop("disabled", true);
+	}
 }
+
+// Load user mixes
+if (document.getElementById("mixLibrary")) {
+	$.ajax({
+      	dataType: "JSON",
+      	url: "fetchMix.php",
+      	success: function(data) {
+      		if (data.length === 0) {
+      			$("#mixLibrary").prop("disabled", true);
+      		} else {
+      			$("#loadBtn").prop("disabled", false);
+      			for(var i = 0; i < data.length; i++) {
+      				var list = $("#mixLibrary").get(0);
+					list.options.add(new Option(data[i]['name'], JSON.stringify(data[i]['mixes']))); 
+      			}
+      		}
+      	}
+    });
+}
+
+// Load a mix to create
+function loadMix(event) {
+	// Get mixes' sounds
+	var selected = $("#mixLibrary").find(":selected").val();
+	var json = JSON.parse(selected);
+	// Remove all current sounds
+	createjs.Sound.stop();
+	removeAllSound();
+	// Add sounds
+	for (var i=0; i<json.length; i++) {
+		createSound(json[i]['name'], json[i]['volume'], json[i]['pan'], json[i]['loop'])
+	}
+
+}
+
+
 /*
  * Edit Sound 
  */
@@ -517,7 +570,7 @@ function removeSound(instance) {
 		    // Return sliderId
 			slidersId.push(instance.id);
     		slidersId.sort();
-    		console.log("available slidersId: " + slidersId);
+    		// console.log("available slidersId: " + slidersId);
 
 			break;
 		}
@@ -539,6 +592,7 @@ function removeSound(instance) {
 // Removes all sounds
 function removeAllSound(instance) {
 	var list = $("#nowPlaying").get(0);
+	if (list.options[0].value === "-1") { return; };
 	for (var j = list.options.length - 1; j >= 0; j--) {
 		// Instance id
 		var iid = list.options[j].value;
@@ -590,7 +644,11 @@ function handleEditChange(type, val) {
 	}
 }
 
-// Save mix
+
+/*
+ * Save Mixes
+ */
+
 function saveMix() {
 	// get JSON of current playing sounds
 	function jsonCurrent() {
@@ -625,7 +683,7 @@ function saveMix() {
 	    return this.value;
 	}).get().join(",");
 	var json = jsonCurrent();
-	console.log(json);
+	// console.log(json);
 	$.ajax({
       	type: "POST",
       	url: "saveMix.php",
@@ -636,10 +694,10 @@ function saveMix() {
       			mixes : json
      	}, 
       	success: function(data) {
-        	console.log(data); 
-        	console.log(data.msg);
+        	// console.log(data); 
+        	// console.log(data.msg);
         	data = JSON.parse(data);
-        	console.log(data.msg);
+        	// console.log(data.msg);
         	if (data.msg === "error") {
         		$("#saveSound .newly-added").remove();
         		$("#saveSound").prepend(
@@ -657,26 +715,12 @@ function saveMix() {
     });
 }
 
-// Load mix
-function getMix() {
-	$.ajax({
-      	dataType: "JSON",
-      	url: "fetchMix.php",
-      	success: function(data) {
-      		console.log(data);
-        	if (data.msg === "error") {
-        		$("#addSoundOpts .newly-added").remove();
-        		$("#addSoundOpts").prepend(
-        			'<div data-alert class="newly-added alert-box alert radius">' +
-  					'Please log in to save a mix.</div>'
-  				);
-        	} else if (data.msg === "saved") {
-        		$("#addSoundOpts .newly-added").remove();
-        		$("#addSoundOpts").prepend(
-        			'<div data-alert class="newly-added alert-box success radius">' +
-  					'Got mixes.</div>'
-  				);
-        	}
-      	}
-    });
-}
+
+/*
+ * Misc.
+ */
+
+// Remove alerts
+$(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+  $(this).find(".alert-box").remove();
+});

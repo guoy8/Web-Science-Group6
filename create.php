@@ -11,7 +11,7 @@
   if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
   {
     echo '<script type="javascript">alert("hi");</script>';
-    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['fullname'] . '</a>';
     $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="#" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
@@ -111,9 +111,15 @@
                     <button id="playAll" class="centerbtn small"><i class="fa fa-fw fa-play"></i></button>
                   </div>
                   <div class="side">
-                    <a href="#" class="small button addSound" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></a>
-                    <a href="#" class="small button editSound" data-reveal-id="editSoundOpts"><i class="fa fa-fw fa fa-pencil-square-o"></i></a>
-                    <a href="#" class="small button saveSound" data-reveal-id="saveSound"><i class="fa fa-fw fa-floppy-o"></i></a>
+                    <span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="has-tip tip-top" title="Add/load new sounds">
+                      <a href="#" class="small button addSound" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></a>
+                    </span>
+                    <span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="has-tip tip-top" title="Edit current sounds">
+                      <a href="#" class="small button editSound" data-reveal-id="editSoundOpts"><i class="fa fa-fw fa fa-pencil-square-o"></i></a>
+                    </span>
+                    <span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="has-tip tip-top" title="Save mix">
+                      <a href="#" class="small button saveSound" data-reveal-id="saveSound"><i class="fa fa-fw fa-floppy-o"></i></a>
+                    </span>
                   </div>
                 </div>
 
@@ -145,14 +151,14 @@
                               <span class="range-slider-active-segment"></span>
                             </div>
                           </div>
-                          <div class="small-1 medium-1 large-1 columns">
+                          <div class="small-1 medium-1 large-1 columns slabel">
                             <span id="addVOutput" class="output"></span>
                           </div>
                         </div>
 
                         <!-- Loop -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">Loop:</div>
+                          <div class="small-2 medium-2 large-2 columns">Loop:</div>
                           <div id="addLoop" class="loopbtn small-10 medium-10 large-10 columns">
                             <input type="radio" name="addloop" value="-1" id="yesLoop" checked disabled><label for="yesLoop">Yes</label>
                             <input type="radio" name="addloop" value="1" id="noLoop" disabled><label for="noLoop">No</label>
@@ -161,7 +167,7 @@
 
                         <!-- Pan -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">
+                          <div class="small-2 medium-2 large-2 columns">
                             <span class="has-tip" data-tooltip aria-haspopup="true" title="If able, sound is localized to the chosen direction.">Pan:</span>
                           </div>
                           <div id="addPan" class="panbtn small-10 medium-10 large-10 columns">
@@ -174,8 +180,16 @@
                     </li>
                   </ul>
 
-                  <!-- Load mix -->
-                  <button id="getMixes" class="small button" onclick="getMix()">Get Mixes</button>
+                  <?php
+                    if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
+                      // Load Mix
+                      echo '<h3 id="loadSoundTitle"><i class="fa fa-fw fa-folder-open"></i> Load sound mix: </h3>';
+                      // List of user mixes -->
+                      echo '<form><select id="mixLibrary" multiple="multiple" class="select"></select></form>';
+                      echo '<button id="loadBtn" class="small button disabled small-12 medium-12 large-12" onclick="loadMix()"><i class="fa fa-plus"></i> Load</button>';
+                    }
+                  ?>
+
                   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                 </div>
 
@@ -211,14 +225,14 @@
                               <span class="range-slider-active-segment"></span>
                             </div>
                           </div>
-                          <div class="small-1 medium-1 large-1 columns">
+                          <div class="small-1 medium-1 large-1 columns slabel">
                             <span id="editVOutput" class="output"></span>
                           </div>
                         </div>
 
                         <!-- Loop -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">Loop:</div>
+                          <div class="small-2 medium-2 large-2 columns">Loop:</div>
                           <div id="editLoop" class="loopbtn small-10 medium-10 large-10 columns">
                             <input type="radio" name="editloop" value="-1" id="yesELoop" checked disabled><label for="yesELoop">Yes</label>
                             <input type="radio" name="editloop" value="1" id="noELoop" disabled><label for="noELoop">No</label>
@@ -227,7 +241,7 @@
 
                         <!-- Pan -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">
+                          <div class="small-2 medium-2 large-2 columns">
                             <span class="has-tip"data-tooltip aria-haspopup="true" title="Pans the sound to the chosen direction">Pan:</span>
                           </div>
                           <div class="panbtn small-10 medium-10 large-10 columns">
