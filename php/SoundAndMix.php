@@ -8,11 +8,14 @@ class SoundAndMixes
 	protected $soundLocations;
 	protected $connection;
 	protected $erroMessage;
-	protected $allowTypes=['mp3','ogg'];
+	protected $allowTypes;
 	const USERTABLENAME="users";
 	const MIXTABLENAME="mixes";
-	const MIXOWNERTABLENAME="mixesOwner";
-	const MAXSIZE=1000000;
+	const MIXOWNERTABLENAME="mixesowner";
+	const SOUNDTABLE="sound";
+	const SOUNDOWNERTABLE="soundowner";
+	const MAXSIZE=100000000;
+	const PATH="C:/xam/htdocs/project/sounds/";
 
 
 
@@ -31,7 +34,7 @@ class SoundAndMixes
 		{
 			echo "illegal usage!";
 		}
-
+		$this->allowTypes=['ogg','mp3'];
 	}
 
 	public function UploadSoundMixes($JsonString,$name,$category,$public)
@@ -51,7 +54,6 @@ class SoundAndMixes
 			$this->connection->InsertRow(self::MIXOWNERTABLENAME,
 				['uid','mid'],
 				[$this->uid,$mid]);
-			return $this->uid.$mid;
 		}
 		
 		
@@ -67,22 +69,20 @@ class SoundAndMixes
 		{
 			$mix=$this->connection->SearchForRow(self::MIXTABLENAME,'*',['id'],[$JsonArray[$i]['mid']]);
 			array_push($Allmixes,$mix);
+
 		}
 		//var_dump($Allmixes[0][0]['mix']);
 		//echo json_encode($Allmixes[0][0]['mix']);
 		$allMix=[];
-		for($i=0;$i<count($Allmixes);$i++)
+		for($i=1;$i<count($Allmixes);$i++)
 		{
-			$temp = json_decode($Allmixes[$i][0]['mix'], true);
-			$temp['name'] = $Allmixes[$i][0]['name'];
-			array_push($allMix, $temp);
+			array_push($allMix, json_decode($Allmixes[$i][0]['mix']));
 		}
 		//echo json_encode($allMix);
-		
 		return $allMix;
 	}	
 
-	public function UploadSoundPiece($file)
+	public function UploadSoundPiece($file,$soundName,$uid)
 	{
 		$filename=$file['name'];
 		$type=$file['type'];
@@ -105,13 +105,29 @@ class SoundAndMixes
 				$erroMessage="Failed to write file to disk";
 
 			return false;
-		}else if(!self::checkSize($size))
+		}else if(!$this->checkSize($size))
 		{
 			return false;
-		}else if(!self::checkType($filename))
+		}else if(!$this->checkType($filename))
 		{
 			return false;
 		}
+		$randomName=$this->generateRandFilename($filename);
+		if(move_uploaded_file($path,self::PATH.$randomName))
+		{
+			$this->saveIndatabase($soundName,self::PATH.$randomName,$uid);
+		}
+
+	}
+
+	public function saveIndatabase($soundName,$path,$uid)
+	{
+		$sid=$this->connection->InsertRow(self::SOUNDTABLE,['soundname','url'],[$soundName,$path]);
+		$this->connection->InsertRow(self::SOUNDOWNERTABLE,['uid','sid'],[$uid,$sid]);
+	}
+
+	public fetchAllSounds()
+	{
 
 	}
 
@@ -121,7 +137,7 @@ class SoundAndMixes
 	}
 
 	//HELPER FUNCTIONS
-	private static function checkSize($size)
+	public function checkSize($size)
 	{
 		if($size>self::MAXSIZE)
 		{
@@ -133,7 +149,7 @@ class SoundAndMixes
 		}
 	}
 
-	private static function checkType($type)
+	public function checkType($type)
 	{
 		$nameArr=explode(".",$type);
 		$type=$nameArr[count($nameArr)-1];
@@ -148,58 +164,17 @@ class SoundAndMixes
 		return false;
 	}
 
-	private static function generateRandFilename($filename)
+	public function generateRandFilename($filename)
 	{
-		list($name,$type) = explode(".",$fileName);
+		list($name,$type) = explode(".",$filename);
 		$str="QWERTYUIOPASDFGHJKLZXCVBNMzxcvbnmasdfghjklqwertyuiop1234567890";
 		$str=str_shuffle($str);
 		$salt=substr($str,0,4);
 		$newname=str_shuffle($name).$salt;
-		return $newname.".".$type;
+		return time().$newname.".".$type;
 	}
 
 
 }
-/*$json='{"mixes": [ 
-{
-		"sid": 1,
-		"volume": 2,
-		"loop": 3,
-		"pan": "left",
-		"delay": 2
-	},
-	{
-		"sid": 1,
-		"volume": 2,
-		"loop": 3,
-		"pan": "left",
-		"delay": 2
-	}
-	
-]}';
-$json2='{
-  "mixes": [
-    {
-      "name": "Evening in the Forest",
-      "loop": "-1",
-      "volume": 0.5,
-      "pan": 0
-    },
-    {
-      "name": "Thunderstorm",
-      "loop": "-1",
-      "volume": 0.5,
-      "pan": 0
-    },
-    {
-      "name": "Storm Rain",
-      "loop": "-1",
-      "volume": 0.5,
-      "pan": 0
-    }
-  ]
-}';*/
-//$result=json_decode($json2,true);
-//var_dump($result);
 
 ?>
