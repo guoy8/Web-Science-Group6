@@ -1,19 +1,31 @@
 <?php
   session_start();
+
   $loginlg = '<li><a href="register.php">Login/Register</a></li>';
   $loginsm = '<li><a href="register.php">Login/Register</a></li>';
+
   $type = 'Public';
   $disabled = '';
   if ($type === 'Public') { $disabled = 'disabled'; }
+  if(isset($_GET) and !empty($_GET))
+  {
+    if($_GET['out']==1)
+    {
+      session_destroy();
+      header("Refresh: 0; URL=create.php");
+    }
+  }
   if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
   {
     echo '<script type="javascript">alert("hi");</script>';
-    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['fullname'] . '</a>';
-    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="#" onclick="logout()">Logout</a></li></ul></li>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="create.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
     $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
-    $loginsm .= '<li><a href="#" onclick="logout()" class="indent">Logout</a></li>';
+    $loginsm .= '<li><a href="create.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
   }
+
   
 ?>
 
