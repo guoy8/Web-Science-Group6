@@ -1,3 +1,33 @@
+<?php
+  session_start();
+
+  $loginlg = '<li><a href="register.php">Login/Register</a></li>';
+  $loginsm = '<li><a href="register.php">Login/Register</a></li>';
+
+  $type = 'Public';
+  $disabled = '';
+  if ($type === 'Public') { $disabled = 'disabled'; }
+  if(isset($_GET) and !empty($_GET))
+  {
+    if($_GET['out']==1)
+    {
+      session_destroy();
+      header("Refresh: 0; URL=listen.php");
+    }
+  }
+  if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
+  {
+    echo '<script type="javascript">alert("hi");</script>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="listen.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+
+    $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
+    $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
+    $loginsm .= '<li><a href="listen.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
+  }
+
+  
+?>
 <!doctype html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -31,7 +61,7 @@
                 <li class="active"><a href="listen.php">Listen</a></li>
                 <li><a href="create.php">Create</a></li>
                 <li><a href="about.php">About</a></li>
-                <li><a href="register.php">Login/Register</a></li>
+                <?php echo $loginlg; ?>
               </ul>
             </section>
           </nav>
@@ -59,7 +89,7 @@
             <li class="active"><a href="listen.php">Listen</a></li>
             <li><a href="create.php">Create</a></li>
             <li><a href="about.php">About</a></li>
-            <li><a href="register.php">Login/Register</a></li>
+            <?php echo $loginsm; ?>
           </ul> 
         </aside> 
         <!-- Start of Content -->
