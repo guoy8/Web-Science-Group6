@@ -133,17 +133,21 @@
         <!-- Show 3 random mixes -->
         <div class="row">
           <div class="large-4 columns">
+<<<<<<< HEAD
             <img id="sm_img1" src="img/playground.jpg"/>
+=======
+            <img id="sm_img1" src="./img/rain_rainy.jpg"/>
+>>>>>>> origin/master
             <h4>POURING RAIN</h4>
           </div>
           
           <div class="large-4 columns">
-            <img id="sm_img2" src="http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg"/>
+            <img id="sm_img2" src="./img/rain_birds.jpg"/>
             <h4>MIGRATING BIRDS</h4>
           </div>
           
           <div class="large-4 columns">
-            <img id="sm_img3" src="https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg"/>
+            <img id="sm_img3" src="./img/rain_stream.jpg"/>
             <h4>RUSHING WATER</h4>
           </div>
         </div>
