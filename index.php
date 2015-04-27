@@ -40,15 +40,6 @@
     <link rel="stylesheet" href="css/foundation.min.css" />
     <link rel="stylesheet" href="css/general.css" />
     <link rel="stylesheet" href="css/home.css" />
-    <style type="text/css">
-    .panel{
-      background-color: #0A0A0A;
-    }
-
-    .panel h3{
-      color: white;
-    }
-    </style>
   </head>
   <body onload="init()">
   <!-- Start of large navigation bar -->
@@ -124,24 +115,25 @@
               </p>
           </div>
         </section>
-        <br>
-        <!--<hr/>!-->
+
+        <hr/>
 
         <!-- Weather API -->
         <div class="row panel">
           <div class="small-8 columns">
-            <img src="./img/weather_rain.jpg">
+            <img src="http://superdevresources.com/wp-content/uploads/sites/7/2014/02/Weather-Api.jpg">
           </div>
-          <div  class="small-4 columns">
-            <h3>Sound of the Day</h3>
-            <h4>.WAV Pool's weather API is unlike any other weather API where we will use advanced technology to locate the weather of your current location and formulate an output of the opposite weather condition.</h4> 
-          </div>
+          <p class="small-4 columns">
+            <strong>Sound of the Day</strong>
+            <br>
+            .WAV Pool's weather API is unlike any other weather API where we will use advanced technology to locate the weather of your current location and formulate an output of the opposite weather condition. 
+          </p>
         </div>
 
         <!-- Show 3 random mixes -->
         <div class="row">
           <div class="large-4 columns">
-            <img id="sm_img1" src="http://images.forwallpaper.com/files/thumbs/preview/21/212749__rain-droplets-water-mood-photo-macro-black-and-white-wallpaper_p.jpg"/>
+            <img id="sm_img1" src="img/playground.jpg"/>
             <h4>POURING RAIN</h4>
           </div>
           
@@ -157,14 +149,13 @@
         </div>
         
      
-        <div id = "contact_footer" class="row">
+        <div class="row">
           <div class="large-12 columns">
           
             <div id="contact" class="panel">
                   
               <div class="row">
                 <div class="large-9 columns">
-                <h3>We would love to hear from you!</h3>
                 </div>
                 <div class="large-3 columns">
                   <a href="#" class="radius button right">Contact Us</a>
