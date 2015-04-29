@@ -119,7 +119,7 @@
         <hr/>
 
         <!-- Weather API -->
-        <div class="row panel">
+        <div id="weather_panel" class="row panel">
           <div class="small-8 columns">
             <img src="http://superdevresources.com/wp-content/uploads/sites/7/2014/02/Weather-Api.jpg">
           </div>
