@@ -17,9 +17,6 @@ class SoundAndMixes
 	const MAXSIZE=100000000;
 	const PATH="C:/xam/htdocs/project/sounds/";
 
-
-
-
 	public function __construct($userid,$username,$fullname)
 	{
 		$this->connection=DB::getInstance();
@@ -76,7 +73,9 @@ class SoundAndMixes
 		$allMix=[];
 		for($i=1;$i<count($Allmixes);$i++)
 		{
-			array_push($allMix, json_decode($Allmixes[$i][0]['mix']));
+			$temp = json_decode($Allmixes[$i][0]['mix'], true);
+			$temp['name'] = $Allmixes[$i][0]['name'];
+			array_push($allMix, $temp);
 		}
 		//echo json_encode($allMix);
 		return $allMix;

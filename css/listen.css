@@ -12,6 +12,13 @@ h1 {
     font-family: 'Arimo', sans-serif;
     color: white;
 }
+h2 {
+  text-transform: uppercase;
+  color: white;
+  font-size: 2em;
+  margin-top: 1em !important;
+  padding-bottom: 0.5em;
+}
 h3, h4 {
     /*font-family: "Arial Narrow", Arial, sans-serif;*/
     font-family: 'Arimo', sans-serif;
@@ -44,42 +51,49 @@ h4 {
     color: #FFF !important;
 }
 
-#error {
-  display: none;
-}
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-#tracks {
-  height: 32em;
-  margin-bottom: 1em;
-}
-#track0 {
-  margin: -75px -82px;
-} #track1 {
-  margin: -130px -137px
-}
-.centerbtn {
+/*
+ * Sound Library 
+ */
+.library div {
   position: relative;
-  top: -22px;
-  left: -42px;
-  font-size: 1.5em !important;
-  border-radius: 10em;
-  background-color: #22303A;
+  display: inline-block;
+  padding: 1em;
+}
+.library p {
+  text-align: center;
+}
+.library div img {
+  width: 100%;
+  cursor: pointer;
+}
+.library div button.small, .library div .button.small {
+  padding: 0.5rem 0.8rem ;
+  font-size: 1em ;
+  margin: 0 0.5em 0 0;
+}
+.library div h4 {
+  background-color: #007095;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 150px;
+  width: 90%;
+  border-left: 1em solid white;
+  font-size: 16px;
+}
+.library div:hover + button {
+  background-color: #84BD00 !important;
+}
+.button {
+  background-color: #191919;
 }
 
-
-.panel{
-    border-color: transparent;
-    background-color: #0A0B0D;
-    padding: 0.5em 0;
+.loading {
+  text-align: center;
+  padding: 1em;
+  color: white;
+  font-size: 16px;
 }
-.button{
-    background-color: #191919;
-}
-
 
 footer {
     background-color: #D7D7EA;
@@ -93,87 +107,3 @@ footer {
     text-align: center;
 }
 
-
-/*! The MIT License (MIT)
-
-Copyright (c) 2014 Prince John Wesley <princejohnwesley@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-**/
-
-
-.jcs {
-  position: relative;
-  border-style: solid;
-  border-radius: 100%;   
-  border-color: #E1E2E4;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
-  border-width: 5px;
-  cursor: pointer;
-}
-
-.jcs-value {
-  position: absolute;
-  border-style: none;
-  border-radius: 100%;
-  border: 2px solid rgb(236, 248, 212);
-  text-align : center;
-  pointer-events: none;
-  line-height: 4em;
-  color: white;
-  background-color: #E1E2E4;
-  outline: none;
-}
-
-.jcs-indicator {
-    
-  position: absolute;
-  border-radius: 100%;
-  background-color: #E1E2E4;
-  border: 1px solid #E1E2E4;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
-  pointer-events : none;
-}
-.jcs-panel {
-  position: relative;
-  display: inline-block;
-  border-style: solid;
-  border-color: transparent;
-  cursor: pointer;
-}
-
-
-.jcs-value img {
-  border-radius: 100%;
-  background: transparent;
-  width: inherit;
-  height: inherit;
-}
-
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
