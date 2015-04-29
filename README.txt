@@ -12,3 +12,7 @@ https://github.com/princejwesley/circular-slider
 
 SoundJS Plugin:
 http://createjs.com/Demos/SoundJS/TestSuite
+http://createjs.com/tutorials/SoundJS%20and%20PreloadJS/
+
+AJAX:
+http://stackoverflow.com/questions/20315582/how-to-pass-javascript-variable-to-php-using-ajax

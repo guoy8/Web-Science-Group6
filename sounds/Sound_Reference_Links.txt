@@ -1,29 +1,39 @@
 Campfire
--62487__sagetyrtle__1103campfire1.ogg
+- Quiet Autumn Campfire
+	-62487__sagetyrtle__1103campfire1.ogg
   	http://freesound.org/people/sagetyrtle/sounds/62487/
--17554__dynamicell__fire-embers-large-campfire.ogg
+- Large Campfire
+	-17554__dynamicell__fire-embers-large-campfire.ogg
 	http://freesound.org/people/Dynamicell/sounds/17554/
--74964__zmb94__campfire-2.ogg
+- Cedar Campfire
+	-74964__zmb94__campfire-2.ogg
 	http://freesound.org/people/zmb94/sounds/74964/
 
 Brook
--127640__corsica-s__broken-top-creek-16.ogg
+- Broken Top Creek
+	-127640__corsica-s__broken-top-creek-16.ogg
 	http://freesound.org/people/Corsica_S/sounds/127640/
--184199__thorvandahl__babbling-brook.ogg
+- Babbling Brook
+	-184199__thorvandahl__babbling-brook.ogg
 	http://freesound.org/people/thorvandahl/sounds/184199/
 
 Wind Chimes
--256152__bmccoy2__awindchimes113014lincolnne24degrees75hi.ogg
+- Northern Cold Wind Chimes
+	-256152__bmccoy2__awindchimes113014lincolnne24degrees75hi.ogg
 	http://freesound.org/people/bmccoy2/sounds/256152/
--196712__littleboot__wind-chimes.ogg
+- Five Rake Large Wind Chimes
+	-196712__littleboot__wind-chimes.ogg
 	http://freesound.org/people/Littleboot/sounds/196712/
--83512__patrick6410__wind-chimes-plf.ogg
+- Nearby Wind Chimes
+	-83512__patrick6410__wind-chimes-plf.ogg
 	http://freesound.org/people/Patrick6410/sounds/83512/
 
 Wind
--217506__felix-blume__wind-blowing-in-a-field-in-texas-usa.ogg
+- Wind Blowing in a Field
+	-217506__felix-blume__wind-blowing-in-a-field-in-texas-usa.ogg
 	http://freesound.org/people/felix.blume/sounds/217506/
 
 Beach/Waves
--243670__bruno-garcez__beach-waves-praia-grande.ogg
+- Beach Waves at Praia Grande
+	-243670__bruno-garcez__beach-waves-praia-grande.ogg
 	http://freesound.org/people/Bruno_Garcez/sounds/243670/

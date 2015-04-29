@@ -32,25 +32,28 @@ ul, li {
 #library {
   height: 8em;
 }
-
-.output, .slabel {
+.slabel {
   line-height: 3em;
 }
 .accordion.columns {
   padding: 0;
+  margin: 0 0 1em 0;
 }
 .accordion {
   border: 1px solid #DDD;
   background-color: white;
 }
+.accordion .accordion-navigation > a, .accordion dd > a {
+  padding: 0.5rem 1rem;
+}
 .accordion .accordion-navigation > .content, .accordion dd > .content {
-  padding: 0.5rem;
+  padding: 0px 0 0.5em 0;
+}
+.range-slider {
+  margin: 1rem 0px;
 }
 #addBtns .small, #editBtns .small {
   padding: 0.7rem 1.7rem;
-}
-.loopbtn, .panbtn {
-  padding-top: 11px;
 }
 #saveOpts {
   margin-top: 1em;
@@ -69,3 +72,6 @@ ul, li {
   color: #000 !important;
 }
 
+.newly-added {
+  margin: 1.2em 0 !important;
+}

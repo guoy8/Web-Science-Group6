@@ -55,6 +55,7 @@ class DB
 			$valueArray[':'.$ColumnArr[$key]]=$val;
 		}
 		$preparedStmt->execute($valueArray);
+		return $this->connection->lastInsertId();
 	}
 
 	public function SearchForRow($tableName,$columnDisplay='',$searchRowArr='',$searchRowValueArr='')

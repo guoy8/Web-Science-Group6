@@ -17,7 +17,7 @@ if(isset($_POST) and !empty($_POST))
     
   }else
   {
-    header("Refresh: 1; URL=index.html");
+    header("Refresh: 1; URL=index.php");
   }
 }
 ?>
@@ -89,18 +89,18 @@ p.title {
           <nav class="top-bar" data-topbar>
             <ul class="title-area">
               <li class="name">
-                <a href="index.html">
+                <a href="index.php">
                   <img src="img/logo.png" alt="wavpool"/>
                 </a>
               </li>
             </ul>
             <section class="top-bar-section">
               <ul class="right">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="listen.html">Listen</a></li>
-                <li class="active"><a href="create.html">Create</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="register.html">Login/Register</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="listen.php">Listen</a></li>
+                <li><a href="create.php">Create</a></li>
+                <li><a href="about.php">About</a></li>
+                <li class="active"><a href="register.php">Login/Register</a></li>
               </ul>
             </section>
           </nav>
@@ -112,7 +112,7 @@ p.title {
         <nav class="tab-bar hide-for-large-up"> 
           <section class="middle tab-bar-section"> 
             <h1 class="title">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="img/logo.png" alt=".wavpool"/>
               </a>
             </h1> 
@@ -123,11 +123,11 @@ p.title {
         </nav> 
         <aside class="right-off-canvas-menu"> 
           <ul class="off-canvas-list"> 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="listen.html">Listen</a></li>
-            <li class="active"><a href="create.html">Create</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="register.html">Login/Register</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="listen.php">Listen</a></li>
+            <li><a href="create.php">Create</a></li>
+            <li><a href="about.php">About</a></li>
+            <li class="active"><a href="register.php">Login/Register</a></li>
           </ul> 
         </aside> 
         
@@ -213,7 +213,7 @@ p.title {
                     </form>
                     <!-- Reg Form End -->
                     
-                    <br>New User? Register <a href="register.html">here</a>.
+                    <br>New User? Register <a href="register.php">here</a>.
                   </div>
                 </div>
                </div></p>

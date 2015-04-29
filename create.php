@@ -1,3 +1,34 @@
+<?php
+  session_start();
+
+  $loginlg = '<li><a href="register.php">Login/Register</a></li>';
+  $loginsm = '<li><a href="register.php">Login/Register</a></li>';
+
+  $type = 'Public';
+  $disabled = '';
+  if ($type === 'Public') { $disabled = 'disabled'; }
+  if(isset($_GET) and !empty($_GET))
+  {
+    if($_GET['out']==1)
+    {
+      session_destroy();
+      header("Refresh: 0; URL=create.php");
+    }
+  }
+  if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
+  {
+    echo '<script type="javascript">alert("hi");</script>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="create.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+
+    $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
+    $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
+    $loginsm .= '<li><a href="create.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
+  }
+
+  
+?>
+
 <!doctype html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -21,18 +52,18 @@
           <nav class="top-bar" data-topbar>
             <ul class="title-area">
               <li class="name">
-                <a href="index.html">
+                <a href="index.php">
                   <img src="img/logo.png" alt=".wavpool"/>
                 </a>
               </li>
             </ul>
             <section class="top-bar-section">
               <ul class="right">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="listen.html">Listen</a></li>
-                <li class="active"><a href="create.html">Create</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="register.html">Login/Register</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="listen.php">Listen</a></li>
+                <li class="active"><a href="create.php">Create</a></li>
+                <li><a href="about.php">About</a></li>
+                <?php echo $loginlg ?>
               </ul>
             </section>
           </nav>
@@ -46,7 +77,7 @@
         <nav class="tab-bar hide-for-large-up"> 
           <section class="middle tab-bar-section"> 
             <h1 class="title">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="img/logo.png" alt=".wavpool"/>
               </a>
             </h1> 
@@ -57,11 +88,11 @@
         </nav> 
         <aside class="right-off-canvas-menu"> 
           <ul class="off-canvas-list"> 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="listen.html">Listen</a></li>
-            <li class="active"><a href="create.html">Create</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="register.html">Login/Register</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="listen.php">Listen</a></li>
+            <li class="active"><a href="create.php">Create</a></li>
+            <li><a href="about.php">About</a></li>
+            <?php echo $loginsm ?>
           </ul> 
         </aside> 
 
@@ -88,9 +119,15 @@
                     <button id="playAll" class="centerbtn small"><i class="fa fa-fw fa-play"></i></button>
                   </div>
                   <div class="side">
-                    <a href="#" class="small button addSound" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></a>
-                    <a href="#" class="small button editSound" data-reveal-id="editSoundOpts"><i class="fa fa-fw fa fa-pencil-square-o"></i></a>
-                    <a href="#" class="small button saveSound" data-reveal-id="saveSound"><i class="fa fa-fw fa-floppy-o"></i></a>
+                    <span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="has-tip tip-top" title="Add/load new sounds">
+                      <a href="#" class="small button addSound" data-reveal-id="addSoundOpts"><i class="fa fa-fw fa-plus-circle"></i></a>
+                    </span>
+                    <span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="has-tip tip-top" title="Edit current sounds">
+                      <a href="#" class="small button editSound" data-reveal-id="editSoundOpts"><i class="fa fa-fw fa fa-pencil-square-o"></i></a>
+                    </span>
+                    <span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="has-tip tip-top" title="Save mix">
+                      <a href="#" class="small button saveSound" data-reveal-id="saveSound"><i class="fa fa-fw fa-floppy-o"></i></a>
+                    </span>
                   </div>
                 </div>
 
@@ -122,14 +159,14 @@
                               <span class="range-slider-active-segment"></span>
                             </div>
                           </div>
-                          <div class="small-1 medium-1 large-1 columns">
+                          <div class="small-1 medium-1 large-1 columns slabel">
                             <span id="addVOutput" class="output"></span>
                           </div>
                         </div>
 
                         <!-- Loop -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">Loop:</div>
+                          <div class="small-2 medium-2 large-2 columns">Loop:</div>
                           <div id="addLoop" class="loopbtn small-10 medium-10 large-10 columns">
                             <input type="radio" name="addloop" value="-1" id="yesLoop" checked disabled><label for="yesLoop">Yes</label>
                             <input type="radio" name="addloop" value="1" id="noLoop" disabled><label for="noLoop">No</label>
@@ -138,7 +175,7 @@
 
                         <!-- Pan -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">
+                          <div class="small-2 medium-2 large-2 columns">
                             <span class="has-tip" data-tooltip aria-haspopup="true" title="If able, sound is localized to the chosen direction.">Pan:</span>
                           </div>
                           <div id="addPan" class="panbtn small-10 medium-10 large-10 columns">
@@ -150,6 +187,17 @@
                       </div>
                     </li>
                   </ul>
+
+                  <?php
+                    if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
+                      // Load Mix
+                      echo '<h3 id="loadSoundTitle"><i class="fa fa-fw fa-folder-open"></i> Load sound mix: </h3>';
+                      // List of user mixes -->
+                      echo '<form><select id="mixLibrary" multiple="multiple" class="select"></select></form>';
+                      echo '<button id="loadBtn" class="small button disabled small-12 medium-12 large-12" onclick="loadMix()"><i class="fa fa-plus"></i> Load</button>';
+                    }
+                  ?>
+
                   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                 </div>
 
@@ -185,14 +233,14 @@
                               <span class="range-slider-active-segment"></span>
                             </div>
                           </div>
-                          <div class="small-1 medium-1 large-1 columns">
+                          <div class="small-1 medium-1 large-1 columns slabel">
                             <span id="editVOutput" class="output"></span>
                           </div>
                         </div>
 
                         <!-- Loop -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">Loop:</div>
+                          <div class="small-2 medium-2 large-2 columns">Loop:</div>
                           <div id="editLoop" class="loopbtn small-10 medium-10 large-10 columns">
                             <input type="radio" name="editloop" value="-1" id="yesELoop" checked disabled><label for="yesELoop">Yes</label>
                             <input type="radio" name="editloop" value="1" id="noELoop" disabled><label for="noELoop">No</label>
@@ -201,7 +249,7 @@
 
                         <!-- Pan -->
                         <div class="row">
-                          <div class="small-2 medium-2 large-2 columns slabel">
+                          <div class="small-2 medium-2 large-2 columns">
                             <span class="has-tip"data-tooltip aria-haspopup="true" title="Pans the sound to the chosen direction">Pan:</span>
                           </div>
                           <div class="panbtn small-10 medium-10 large-10 columns">
@@ -219,26 +267,26 @@
                 <!-- Save mix -->
                 <div id="saveSound" class="reveal-modal medium" data-reveal aria-labelledby="saveSoundTitle" aria-hidden="true" role="dialog">
                   <h3 id="saveSoundTitle"><i class="fa fa-fw fa-floppy-o"></i> Save this sound mix:</h3>
-                  <form>
+                  <form id="saveMixes" onsubmit="return false;">
                     <div class="row"> 
                       <div class="large-12 columns"> 
-                        <label>Name <input type="text" placeholder="Name your sound mix" /> </label> 
+                        <label>Name <input id="soundname" type="text" placeholder="Name your sound mix" /> </label> 
                       </div> 
                     </div> 
                     <div class="row"> 
                       <div class="large-4 columns">
                         <label>Share your mix with others?</label>
                         <input type="radio" name="savetype" value="public" id="public" checked><label for="public">Public</label>
-                        <input type="radio" name="savetype" value="private" id="private"><label for="private">Private</label>
+                        <input type="radio" name="savetype" value="private" id="private" <?php echo $disabled ?> ><label for="private">Private</label>
                       </div>
                       <div class="large-8 columns"> 
                         <label>Category</label> 
-                        <input id="checkbox1" type="checkbox"><label for="checkbox1">A</label> 
-                        <input id="checkbox2" type="checkbox"><label for="checkbox2">B</label> 
-                        <input id="checkbox2" type="checkbox"><label for="checkbox2">C</label> 
+                        <input name="category" id="checkbox1" type="checkbox" value="A"><label for="checkbox1">A</label> 
+                        <input name="category" id="checkbox2" type="checkbox" value="B"><label for="checkbox2">B</label> 
+                        <input name="category" id="checkbox2" type="checkbox" value="C"><label for="checkbox2">C</label> 
                       </div> 
                     </div> 
-                    <button id="save" class="small button">Save</button>
+                    <button id="save" class="small button" onclick="saveMix()">Save</button>
                   </form>
                   <a class="close-reveal-modal" aria-label="Close">&#215;</a>
                 </div>
