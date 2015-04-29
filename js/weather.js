@@ -14,6 +14,7 @@ $(document).ready(function(){
 					document.getElementById("sm_img3").src = "img/Sunny/sunny_fountain.jpg";
 					document.getElementById("tracks").style.backgroundImage = "url('img/Sunny/sunny_treetops.jpg')";
 					document.body.style.backgroundImage = "url('img/Sunny/sunny_background.jpg')";
+					document.getElementById("weather_panel").style.backgroundColor = "#CCCC00";
 					condition = "rainy";
 				}
 			});
@@ -23,6 +24,7 @@ $(document).ready(function(){
 				document.getElementById("sm_img3").src = "img/Cold/cold_bells.jpg";
 				document.getElementById("tracks").style.backgroundImage = "url('img/Cold/cold_stream.jpg')";
 				document.body.style.backgroundImage = "url('img/Cold/cold_background.jpg')";
+				document.getElementById("weather_panel").style.backgroundColor = "#D8DFEB";
 				condition = "warm";
 			}
 			if((data.main.temp-'273').toFixed(0) < 0){    //cold weather colder than 32 F. Displays hot images
@@ -31,6 +33,7 @@ $(document).ready(function(){
 				document.getElementById("sm_img3").src = "img/Warm/warm_underwater.jpg";
 				document.getElementById("tracks").style.backgroundImage = "url('img/Warm/warm_bonfire.jpg')";
 				document.body.style.backgroundImage = "url('img/Warm/warm_background.jpg')";
+				document.getElementById("weather_panel").style.backgroundColor = "#EEEEF0";
 				condition = "cold";
 			}
 		});
