@@ -126,9 +126,41 @@ class SoundAndMixes
 		$this->connection->InsertRow(self::SOUNDOWNERTABLE,['uid','sid'],[$uid,$sid]);
 	}
 
-	public fetchAllSounds()
+	public function fetchAllSounds()
 	{
+		$Array=$this->connection->SearchForRow(self::SOUNDTABLE,'*',['count'],[0]);
+		$finalArr=[];
+		for($i=0;$i<count($Array);$i++)
+		{
+			$arr['id']=$Array[$i]['soundname'];
+			$arr['src']=$Array[$i]['url'];
+			array_push($finalArr,$arr);
+		}
+		return $finalArr;
 
+	}
+
+	public function fetchMixRand($number)
+	{
+		$Array=$this->connection->SearchForRow(self::MIXTABLENAME,'*',['public'],[0]);
+		shuffle($Array);
+		$finalArr=[];
+		for($i=0;$i<$number;$i++)
+		{
+			array_push($finalArr, json_decode($Array[$i]['mix']));
+		}
+		return $finalArr;
+	}
+
+	public function fetchBycate($category)
+	{
+		$Array=$this->connection->SearchForRow(self::MIXTABLENAME,'*',['categories'],[$category]);
+		$finalArr=[];
+		for($i=0;$i<count($Array);$i++)
+		{
+			array_push($finalArr, json_decode($Array[$i]['mix']));
+		}
+		return $finalArr;
 	}
 
 	public function getErrorMessage()
@@ -173,6 +205,8 @@ class SoundAndMixes
 		$newname=str_shuffle($name).$salt;
 		return time().$newname.".".$type;
 	}
+
+
 
 
 }
