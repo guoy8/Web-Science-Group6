@@ -4,9 +4,15 @@
   $loginlg = '<li><a href="register.php">Login/Register</a></li>';
   $loginsm = '<li><a href="register.php">Login/Register</a></li>';
 
-  $type = 'Public';
   $disabled = '';
-  if ($type === 'Public') { $disabled = 'disabled'; }
+  $type = isset($_SESSION['premium']) ? $_SESSION['premium'] : 0;
+  if ($type === 0) { 
+    $disabled = 'disabled'; 
+    $type = 'Public';
+  } else {
+    $type = 'Premium';
+  }
+
   if(isset($_GET) and !empty($_GET))
   {
     if($_GET['out']==1)
@@ -18,8 +24,8 @@
   if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
   {
     echo '<script type="javascript">alert("hi");</script>';
-    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
-    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="create.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['fullname'] . '</a>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . ' User </li><li><a href="create.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
     $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
@@ -190,11 +196,19 @@
 
                   <?php
                     if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
+                      echo '<div class="row"><div class="medium-12 large-6 columns">';
                       // Load Mix
                       echo '<h3 id="loadSoundTitle"><i class="fa fa-fw fa-folder-open"></i> Load sound mix: </h3>';
                       // List of user mixes -->
                       echo '<form><select id="mixLibrary" multiple="multiple" class="select"></select></form>';
                       echo '<button id="loadBtn" class="small button disabled small-12 medium-12 large-12" onclick="loadMix()"><i class="fa fa-plus"></i> Load</button>';
+                      echo '</div><div class="medium-12 large-6 columns">';
+                      echo '<h3 id="saveFileTitle"><i class="fa fa-fw fa-upload"></i> Upload Sound: </h3>';
+                      echo '<form action="uploadFile.php" class="dropzone" id="fileUpload">';
+                      echo '<div class="fallback"><input type="file" name="file" id="fileToUpload"></div></form>';
+                      echo '<label>Sound Title: <input type="text" id="soundTitle"></label>';
+                      echo '<button id="upload" class="small button disabled small-12"><i class="fa fa-plus"></i> Upload</button>';
+                      echo '</div>';
                     }
                   ?>
 
@@ -281,9 +295,12 @@
                       </div>
                       <div class="large-8 columns"> 
                         <label>Category</label> 
-                        <input name="category" id="checkbox1" type="checkbox" value="A"><label for="checkbox1">A</label> 
-                        <input name="category" id="checkbox2" type="checkbox" value="B"><label for="checkbox2">B</label> 
-                        <input name="category" id="checkbox2" type="checkbox" value="C"><label for="checkbox2">C</label> 
+                        <input name="category" id="checkbox1" type="checkbox" value="Animal"><label for="checkbox1">Animal</label> 
+                        <input name="category" id="checkbox2" type="checkbox" value="Cool"><label for="checkbox2">Cool</label> 
+                        <input name="category" id="checkbox3" type="checkbox" value="Human"><label for="checkbox2">Human</label> 
+                        <input name="category" id="checkbox4" type="checkbox" value="Instrumental"><label for="checkbox2">Instrumental</label>
+                        <input name="category" id="checkbox5" type="checkbox" value="Nature"><label for="checkbox2">Nature</label>
+                        <input name="category" id="checkbox6" type="checkbox" value="Warm"><label for="checkbox2">Warm</label>
                       </div> 
                     </div> 
                     <button id="save" class="small button" onclick="saveMix()">Save</button>
@@ -323,6 +340,10 @@
     <script src="js/foundation/foundation.accordion.js"></script>
     <script src="js/foundation/foundation.reveal.js"></script>
     <script src="js/circular-slider.js"></script>
+    <script src="js/dropzone.js"></script>
     <script src="js/create.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>

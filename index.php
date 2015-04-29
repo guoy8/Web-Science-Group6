@@ -119,7 +119,7 @@
         <hr/>
 
         <!-- Weather API -->
-        <div class="row panel">
+        <div id="weather_panel" class="row panel">
           <div class="small-8 columns">
             <img src="http://superdevresources.com/wp-content/uploads/sites/7/2014/02/Weather-Api.jpg">
           </div>
@@ -133,11 +133,8 @@
         <!-- Show 3 random mixes -->
         <div class="row">
           <div class="large-4 columns">
-<<<<<<< HEAD
-            <img id="sm_img1" src="img/playground.jpg"/>
-=======
             <img id="sm_img1" src="./img/rain_rainy.jpg"/>
->>>>>>> origin/master
+
             <h4>POURING RAIN</h4>
           </div>
           
