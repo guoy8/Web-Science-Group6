@@ -115,18 +115,15 @@
               </p>
           </div>
         </section>
-
-        <hr/>
-
+        <br>
         <!-- Weather API -->
         <div id="weather_panel" class="row panel">
           <div class="small-8 columns">
-            <img src="http://superdevresources.com/wp-content/uploads/sites/7/2014/02/Weather-Api.jpg">
+            <img id = "Weather" src="./img/weather_rain.jpg">
           </div>
           <p class="small-4 columns">
-            <strong>Sound of the Day</strong>
-            <br>
-            .WAV Pool's weather API is unlike any other weather API where we will use advanced technology to locate the weather of your current location and formulate an output of the opposite weather condition. 
+            <h3>Sound of the Day</h3>
+            <h4>.WAV Pool's weather API is unlike any other weather API where we will use advanced technology to locate the weather of your current location and formulate an output of the opposite weather condition.</h4> 
           </p>
         </div>
 
@@ -135,17 +132,14 @@
           <div class="large-4 columns">
             <img id="sm_img1" src="./img/rain_rainy.jpg"/>
 
-            <h4>POURING RAIN</h4>
           </div>
           
           <div class="large-4 columns">
             <img id="sm_img2" src="./img/rain_birds.jpg"/>
-            <h4>MIGRATING BIRDS</h4>
           </div>
           
           <div class="large-4 columns">
             <img id="sm_img3" src="./img/rain_stream.jpg"/>
-            <h4>RUSHING WATER</h4>
           </div>
         </div>
         
@@ -170,7 +164,7 @@
         <section class="full-width copyright-section">
             <div class="row">
               <div class="small-12 columns">
-                <p>© Copyright 2014</p>
+                <p>© Copyright 2015</p>
               </div>
             </div>
           </section>
