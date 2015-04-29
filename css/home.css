@@ -8,3 +8,11 @@
     padding: 1em;
     border-radius: 1em;
 }
+
+p.small-4.columns{
+    padding-top: 60px;
+}
+
+.panel h3{
+    color:white;
+}
