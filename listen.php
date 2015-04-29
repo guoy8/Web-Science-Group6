@@ -18,7 +18,7 @@
   if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
   {
     echo '<script type="javascript">alert("hi");</script>';
-    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['fullname'] . '</a>';
     $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="listen.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
@@ -35,14 +35,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>.wavpool // Listen</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.min.css" />
     <link rel="stylesheet" href="css/general.css" />
     <link rel="stylesheet" href="css/listen.css" />
-    <link rel="stylesheet" href="css/home.css" />
 
   </head>
-  <body>
+  <body onload="init()">
   <!-- Start of large navigation bar -->
     <section class="navigation-section show-for-large-up">
       <div class="row">
@@ -95,64 +95,27 @@
         <!-- Start of Content -->
         <h1 class="row">Listen</h1>
 
+        <?php
+          if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
+            echo '<h2 class="row">User Mixes</h2>';
+            echo '<div id="userLibrary" class="library row">';
+            echo '<div class="small-12 loading">';
+            echo '<i class="fa fa-circle-o-notch fa-spin"></i> Please wait while sounds are being loaded...';
+            echo '</div></div>';
+          }
+        ?>
+
         <h2 class="row">Sound Library</h2>
-        <div class="row">
-          <div class="large-4 columns">
-            <img src="http://images.forwallpaper.com/files/thumbs/preview/21/212749__rain-droplets-water-mood-photo-macro-black-and-white-wallpaper_p.jpg"/>
-            <h4>POURING RAIN</h4>
-          </div>
-          
-          <div class="large-4 columns">
-            <img src="http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg"/>
-            <h4>MIGRATING BIRDS</h4>
-          </div>
-          
-          <div class="large-4 columns">
-            <img src="https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg"/>
-            <h4>RUSHING WATER</h4>
+        <div id="defaultLibrary" class="library row">
+          <div class="small-12 loading">
+            <i class="fa fa-circle-o-notch fa-spin"></i> Loading sounds...
           </div>
         </div>
 
-        <div class="row">
-          <div class="large-4 columns">
-            <img src="http://i59.tinypic.com/2lig5ub.jpg"/>
-            <h4>COZY FIREPLACE</h4>
-          </div>
-
-          <div class="large-4 columns">
-            <img src="http://i61.tinypic.com/wsn1ja.jpg"/>
-            <h4>OCEAN BLUES</h4>
-          </div>
-
-          <div class="large-4 columns">
-            <img src="http://s28.postimg.org/9k5s6e4gd/countrysidecidadas.jpg"/>
-            <h4>COUNTRYSIDE CIDADAS</h4>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="large-4 columns">
-            <img src="http://i59.tinypic.com/1el9og.jpg"/>
-            <h4>BREEZY FAN</h4>
-          </div>
-
-          <div class="large-4 columns">
-            <img src="http://i58.tinypic.com/if5rmv.jpg"/>
-            <h4>RHYTHM OF PEOPLE</h4>
-          </div>
-
-          <div class="large-4 columns">
-            <img src="http://i62.tinypic.com/2vi5xxw.jpg"/>
-            <h4>ZEN GARDEN</h4>
-          </div>
-        </div>
-        
-        <div class="row">
+        <div id="contact" class="row">
           <div class="large-12 columns">
-          
             <div class="panel">
               <h4>Get in touch!</h4>
-                  
               <div class="row">
                 <div class="large-9 columns">
                   <p>We'd love to hear from you, you attractive person you.</p>
@@ -162,7 +125,6 @@
                 </div>
               </div>
             </div>
-            
           </div>
         </div>      
 
@@ -180,8 +142,6 @@
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script src="js/circular-slider.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
+    <script src="js/listen.js"></script>
   </body>
 </html>

@@ -85,7 +85,7 @@ function init() {
 	queue.installPlugin(createjs.Sound);
 	queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
 	queue.loadManifest([
-	    {id: "Beach Waves at Praia Grande", src: "sounds/beach/beach_waves_at_praia_grande.ogg"},
+	    {id: "Beach Waves", src: "sounds/beach/beach_waves_at_praia_grande.ogg"},
 		{id: "Broken Top Creek", src: "sounds/brook/broken_top_creek.ogg"},
 		{id: "Babbling Brook", src: "sounds/brook/babbling_brook.ogg"},
 		{id: "Large Campfire", src: "sounds/campfire/large_campfire.ogg"},
@@ -135,17 +135,13 @@ function masterPlayPause(event) {
 	   		// console.log("masterplaypause: " + key);
 	    	var obj = instanceHash[key];
 	    	// If user wishes to pause all sounds and sound is not finished
-	    	if (pause && obj.playState != createjs.Sound.PLAY_FINISHED) {
-	    		obj.pause();
-	    	} 
+	    	if (pause && obj.playState != createjs.Sound.PLAY_FINISHED) { obj.pause(); } 
 	    	// If user wants to play all sounds
 	    	else if (!pause) {
 	    		if (obj.playState == createjs.Sound.PLAY_FINISHED) {
 	    			obj.play({ loop: obj.loop, volume: obj.volume, pan: obj.pan });
 	    			trackTime(key);
-	    		} else {
-	    			obj.resume();
-	    		}
+	    		} else { obj.resume(); }
 	    	}
 	    }
 	}
@@ -187,9 +183,7 @@ function previewSound(event) {
 	// If no preview instance is playing or a new instance is selected
 	if (previewInstance === null || selected != previewInstance.name) {
 		// Stop previous instance if it exists
-		if (previewInstance != null) {
-			previewInstance.stop();
-		}
+		if (previewInstance != null) { previewInstance.stop(); }
 		// Get the new selected sound and play
 		var instance = createjs.Sound.createInstance(selected);
 		instance.name = selected;
@@ -232,6 +226,7 @@ function handleAddChange(type, val) {
 		previewInstance.setPan(val);
 	}
 }
+
 // Create sound and its slider 
 function createSound(name, volume, pan, loop) {
 	var instance = createjs.Sound.createInstance(name);
@@ -259,9 +254,7 @@ function createSound(name, volume, pan, loop) {
 		max: Math.floor(instance.getDuration()),
 	    radius: sizes[instance.id],
 	    innerCircleRatio: '0.1',
-	    slide: function(ui, value) {
-	    	instance.setPosition(value);
-	    }
+	    slide: function(ui, value) { instance.setPosition(value); }
 	});
 	slider.id = instance.id;
 	sliders[instance.id] = slider;
@@ -367,6 +360,7 @@ if (document.getElementById("mixLibrary")) {
       	dataType: "JSON",
       	url: "fetchMix.php",
       	success: function(data) {
+      		// console.log(data);
       		if (data.length === 0) {
       			$("#mixLibrary").prop("disabled", true);
       		} else {
@@ -392,9 +386,33 @@ function loadMix(event) {
 	for (var i=0; i<json.length; i++) {
 		createSound(json[i]['name'], json[i]['volume'], json[i]['pan'], json[i]['loop'])
 	}
-
 }
 
+// Add upload UI
+Dropzone.autoDiscover = false;
+var upload = new Dropzone("#fileUpload", {
+	url: "/uploadSound.php",
+	autoProcessQueue: false,
+	acceptedFiles: ".ogg,.mp3",
+	dictDefaultMessage: "Click or drop to upload your sound (.ogg, .mp3)",
+	accept: function(file, done) {
+		$("#upload").removeClass("disabled");
+	},
+	sending: function(file, xhr, formData) {
+		var title = $("#soundTitle").val();
+		console.log(file);
+		console.log(formData);
+		if (title === "") { title = "New Sound"; }
+	    formData.append("soundname", title);
+	},
+	error: function(a, error, xhr) {
+		alert(error);
+	}
+});
+
+$('#upload').click(function(){           
+     upload.processQueue();
+});
 
 /*
  * Edit Sound 
@@ -666,6 +684,14 @@ function saveMix() {
 				mixes.push(mix);
 			}
 		}
+		if (mixes.length === 0) {
+			$("#saveSound .newly-added").remove();
+			$("#saveSound").prepend(
+    			'<div data-alert class="newly-added alert-box alert radius">' +
+				'Please add a sound before trying to save a mix.</div>'
+			);
+			return;
+		}
 		json["mixes"] = mixes;
 		return JSON.stringify(json, null, 2);
 	}
@@ -724,3 +750,4 @@ function saveMix() {
 $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
   $(this).find(".alert-box").remove();
 });
+

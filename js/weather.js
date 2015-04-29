@@ -1,6 +1,9 @@
 $(document).ready(function(){
 	var condition = "rainy";
-	navigator.geolocation.getCurrentPosition(showPosition);			//Get the current location coordinates.
+	if (navigator.geolocation) {
+		//Get the current location coordinates.
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } 
 	function showPosition(position){
 		//Pass the coordinates to the API using the API key, and retrieve the weather data.
 		$.get("http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&APPID=9a25400d6a728870af915c8c614e77d7", function(data){

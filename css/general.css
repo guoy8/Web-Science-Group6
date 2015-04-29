@@ -101,9 +101,10 @@ h4 {
 
 
 .panel{
-    border-color: transparent;
-    background-color: #0A0B0D;
-    padding: 0.5em 0;
+  border-color: transparent;
+  background-color: #0A0B0D;
+  padding: 1em;
+  border-radius: 0.5em;
 }
 .button{
     background-color: #191919;
