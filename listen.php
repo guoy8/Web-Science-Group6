@@ -143,5 +143,8 @@
     <script src="js/foundation.min.js"></script>
     <script src="js/circular-slider.js"></script>
     <script src="js/listen.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>
