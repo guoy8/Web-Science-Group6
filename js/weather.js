@@ -12,6 +12,7 @@ $(document).ready(function(){
 					condition = "sunny";
 				}
 				else{ //weather ids of rainy/stormy. Displays sunny images
+					document.getElementById("Weather").src = "img/Sunny/weather_sunny.jpg";
 					document.getElementById("sm_img1").src = "img/Sunny/sunny_chime.jpg";
 					document.getElementById("sm_img2").src = "img/Sunny/sunny_bee.jpg";
 					document.getElementById("sm_img3").src = "img/Sunny/sunny_fountain.jpg";
@@ -23,6 +24,7 @@ $(document).ready(function(){
 				}
 			});
 			if((data.main.temp-'273').toFixed(0) > 21){    //warm weather hotter than 70 F. Displays cold images
+				document.getElementById("Weather").src = "img/Cold/weather_cold.jpg";
 				document.getElementById("sm_img1").src = "img/Cold/cold_icicle.jpg";
 				document.getElementById("sm_img2").src = "img/Cold/cold_owl.jpg";
 				document.getElementById("sm_img3").src = "img/Cold/cold_bells.jpg";
@@ -34,6 +36,7 @@ $(document).ready(function(){
 				condition = "warm";
 			}
 			if((data.main.temp-'273').toFixed(0) < 0){    //cold weather colder than 32 F. Displays hot images
+				document.getElementById("Weather").src = "img/Warm/weather_warm.jpg";
 				document.getElementById("sm_img1").src = "img/Warm/warm_seagulls.jpg";
 				document.getElementById("sm_img2").src = "img/Warm/warm_beach.jpg";
 				document.getElementById("sm_img3").src = "img/Warm/warm_underwater.jpg";
