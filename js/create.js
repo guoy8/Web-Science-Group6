@@ -391,7 +391,7 @@ function loadMix(event) {
 // Add upload UI
 Dropzone.autoDiscover = false;
 var upload = new Dropzone("#fileUpload", {
-	url: "/uploadSound.php",
+	url: "/upload.php",
 	autoProcessQueue: false,
 	acceptedFiles: ".ogg,.mp3",
 	dictDefaultMessage: "Click or drop to upload your sound (.ogg, .mp3)",

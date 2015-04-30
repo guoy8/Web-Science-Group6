@@ -34,30 +34,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD:listen.html
-    <title>.wavpool Listen</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/foundation.min.css" />
-<!--     <link rel="stylesheet" href="css/general.css" /> -->
-    <link rel="stylesheet" href="css/listen.css" />
-=======
->>>>>>> origin/master:listen.php
     <title>.wavpool // Listen</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/foundation.min.css" />
     <link rel="stylesheet" href="css/general.css" />
-<<<<<<< HEAD:listen.html
-=======
     <link rel="stylesheet" href="css/listen.css" />
-<<<<<<< HEAD
->>>>>>> origin/master:listen.php
-    <link rel="stylesheet" href="css/home.css" />
-=======
->>>>>>> 36e03ed3c904996b3de797bd29b675b3d937326e
 
   </head>
   <body onload="init()">
@@ -110,64 +92,9 @@
             <?php echo $loginsm; ?>
           </ul> 
         </aside> 
-<<<<<<< HEAD:listen.html
-      </div>
-      
-        <!-- Start of Content -->
-        <div class="row">
-          <div class="large-12 columns">
-          <div id="slider">
-            <img src="img/fields.jpg"/>
-          </div>
-          </div>
-        </div>
-
-        <!--images are edited to size 304x191 each -->
-=======
         <!-- Start of Content -->
         <h1 class="row">Listen</h1>
 
-<<<<<<< HEAD
-        <h2 class="row">Sound Library</h2>
->>>>>>> origin/master:listen.php
-        <div class="row">
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/5egjers57/image.jpg"/>
-            <h4>POURING RAIN</h4>
-          </div>
-          
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/91waku0cb/image.jpg"/>
-            <h4>MIGRATING BIRDS</h4>
-          </div>
-          
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/ddkw9u797/image.jpg"/>
-            <h4>RUSHING WATER</h4>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/uzsremfcr/image.jpg"/>
-            <h4>COZY FIREPLACE</h4>
-          </div>
-
-<<<<<<< HEAD:listen.html
-        <div class="large-4 columns">
-        <img src="http://s15.postimg.org/g6e3tv7ln/image.jpg"/>
-          <h4>COUNTRYSIDE CIDADAS</h4>
-        </div>
-        
-=======
->>>>>>> origin/master:listen.php
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/5fqh86tyz/image.jpg"/>
-            <h4>OCEAN BLUES</h4>
-          </div>
-<<<<<<< HEAD:listen.html
-=======
-=======
         <?php
           if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
             echo '<h2 class="row">User Mixes</h2>';
@@ -177,38 +104,15 @@
             echo '</div></div>';
           }
         ?>
->>>>>>> 36e03ed3c904996b3de797bd29b675b3d937326e
 
         <h2 class="row">Sound Library</h2>
         <div id="defaultLibrary" class="library row">
           <div class="small-12 loading">
             <i class="fa fa-circle-o-notch fa-spin"></i> Loading sounds...
           </div>
->>>>>>> origin/master:listen.php
         </div>
 
-<<<<<<< HEAD
-        <div class="row">
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/eh50lsrwb/image.jpg"/>
-            <h4>BREEZY FAN</h4>
-          </div>
-
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/9701ui7nf/image.jpg"/>
-            <h4>RHYTHM OF PEOPLE</h4>
-          </div>
-
-          <div class="large-4 columns">
-            <img src="http://s15.postimg.org/ui27cif5n/image.jpg"/>
-            <h4>ZEN GARDEN</h4>
-          </div>
-        </div>
-        
-        <div class="row">
-=======
         <div id="contact" class="row">
->>>>>>> 36e03ed3c904996b3de797bd29b675b3d937326e
           <div class="large-12 columns">
             <div class="panel">
               <h4>Get in touch!</h4>
@@ -239,8 +143,5 @@
     <script src="js/foundation.min.js"></script>
     <script src="js/circular-slider.js"></script>
     <script src="js/listen.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
   </body>
 </html>

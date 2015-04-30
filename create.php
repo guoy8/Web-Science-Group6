@@ -342,8 +342,5 @@
     <script src="js/circular-slider.js"></script>
     <script src="js/dropzone.js"></script>
     <script src="js/create.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
   </body>
 </html>

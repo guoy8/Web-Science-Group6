@@ -4,16 +4,16 @@ $(document).foundation();
  * DEFAULT SOUND IMAGES
  */
 var soundImgs = {
-	"Beach Waves at Praia Grande": "http://i61.tinypic.com/wsn1ja.jpg",
-	"Broken Top Creek": "http://images.forwallpaper.com/files/thumbs/preview/21/212749__rain-droplets-water-mood-photo-macro-black-and-white-wallpaper_p.jpg",
-	"Babbling Brook": "https://naturewallpaperhd.files.wordpress.com/2013/11/black-and-white-river-hd-wallpaper-1024x640.jpg",
-	"Large Campfire": "http://i58.tinypic.com/if5rmv.jpg",
-	"Quiet Autumn Campfire": "http://i59.tinypic.com/2lig5ub.jpg",
-	"Cedar Campfire": "http://i59.tinypic.com/2lig5ub.jpg",
-	"Wind Blowing in a Field": "http://cdn.animals-pics.com/pictures/favim.com/orig/201102/23/Favim.com-634.jpg",
-	"Northern Cold Wind Chimes": "http://i62.tinypic.com/2vi5xxw.jpg",
-	"Five Rake Large Wind Chimes": "http://i59.tinypic.com/1el9og.jpg",
-	"Nearby Wind Chimes": "http://s28.postimg.org/9k5s6e4gd/countrysidecidadas.jpg"
+	"Beach Waves at Praia Grande": "img/listendefaultimg/6.jpg",
+	"Broken Top Creek": "img/listendefaultimg/3.jpg",
+	"Babbling Brook": "img/listendefaultimg/1.jpg",
+	"Large Campfire": "img/listendefaultimg/8.jpg",
+	"Quiet Autumn Campfire": "img/listendefaultimg/4.jpg",
+	"Cedar Campfire": "img/listendefaultimg/2.jpg",
+	"Wind Blowing in a Field": "img/listendefaultimg/5.jpg",
+	"Northern Cold Wind Chimes": "img/listendefaultimg/8.jpg",
+	"Five Rake Large Wind Chimes": "img/listendefaultimg/9.jpg",
+	"Nearby Wind Chimes": "img/listendefaultimg/7.jpg"
 };
 
 var instanceHash = {};
@@ -93,10 +93,10 @@ if (document.getElementById("userLibrary")) {
       	dataType: "JSON",
       	url: "fetchMix.php",
       	success: function(data) {
-      		// console.log(data);
       		if (data.length === 0) {
       			$("#userLibrary").html("<p>You haven't saved any mixes! Visit <a href='create.php'>the create page</a> to start mixing now.</p>");
       		} else {
+      			console.log(data);
       			for(var i = 0; i < data.length; i++) {
       				addUserMix(data[i]['name'], JSON.stringify(data[i]['mixes']));
       			}
