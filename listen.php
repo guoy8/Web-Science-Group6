@@ -4,9 +4,15 @@
   $loginlg = '<li><a href="register.php">Login/Register</a></li>';
   $loginsm = '<li><a href="register.php">Login/Register</a></li>';
 
-  $type = 'Public';
   $disabled = '';
-  if ($type === 'Public') { $disabled = 'disabled'; }
+  $type = isset($_SESSION['premium']) ? $_SESSION['premium'] : 0;
+  if ($type == 0) { 
+    $disabled = 'disabled'; 
+    $type = 'Public';
+  } else {
+    $type = 'Premium';
+  }
+  
   if(isset($_GET) and !empty($_GET))
   {
     if($_GET['out']==1)
@@ -18,16 +24,15 @@
   if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
   {
     echo '<script type="javascript">alert("hi");</script>';
-    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['fullname'] . '</a>';
-    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="listen.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . ' User </li><li><a href="index.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
     $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
-    $loginsm .= '<li><a href="listen.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
+    $loginsm .= '<li><a href="index.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
   }
-
-  
 ?>
+
 <!doctype html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -98,18 +103,21 @@
         <?php
           if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
             echo '<h2 class="row">User Mixes</h2>';
-            echo '<div id="userLibrary" class="library row">';
-            echo '<div class="small-12 loading">';
+            echo '<div class="row small-12">';
+            echo '<div class="small-12 userloading">';
             echo '<i class="fa fa-circle-o-notch fa-spin"></i> Please wait while sounds are being loaded...';
-            echo '</div></div>';
+            echo '</div>';
+            echo '<ul id="userLibrary" class="library small-block-grid-1 medium-block-grid-2 large-block-grid-3"></ul>';
+            echo '</div>';
           }
         ?>
 
         <h2 class="row">Sound Library</h2>
-        <div id="defaultLibrary" class="library row">
+        <div class="row small-12">
           <div class="small-12 loading">
-            <i class="fa fa-circle-o-notch fa-spin"></i> Loading sounds...
+            <i class="fa fa-circle-o-notch fa-spin"></i> Please wait while sounds are being loaded...
           </div>
+          <ul id="defaultLibrary" class="library small-block-grid-1 medium-block-grid-2 large-block-grid-3"></ul>
         </div>
 
         <div id="contact" class="row">

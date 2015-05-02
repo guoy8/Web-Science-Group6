@@ -6,7 +6,7 @@
 
   $disabled = '';
   $type = isset($_SESSION['premium']) ? $_SESSION['premium'] : 0;
-  if ($type === 0) { 
+  if ($type == 0) { 
     $disabled = 'disabled'; 
     $type = 'Public';
   } else {

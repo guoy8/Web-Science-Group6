@@ -11,12 +11,11 @@ if(isset($_POST) and !empty($_POST))
     echo $user->getErrMessage();
   }else
   {
-    echo "<script type='text/javascript'>alert('Now you are in! Jump to login page');</script>";
     header("Refresh: 0; URL=login.php?email={$username}");
+    echo "<script type='text/javascript'>alert('Now you are in! Jump to login page');</script>";
   }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 	<head>

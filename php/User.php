@@ -1,4 +1,3 @@
-
 <?php 
 /////////////////////////////////////////////////
 //USE THIS CLASS FOR USER LOG IN AND REGISTRATION

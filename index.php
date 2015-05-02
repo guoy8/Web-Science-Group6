@@ -4,9 +4,15 @@
   $loginlg = '<li><a href="register.php">Login/Register</a></li>';
   $loginsm = '<li><a href="register.php">Login/Register</a></li>';
 
-  $type = 'Public';
   $disabled = '';
-  if ($type === 'Public') { $disabled = 'disabled'; }
+  $type = isset($_SESSION['premium']) ? $_SESSION['premium'] : 0;
+  if ($type == 0) { 
+    $disabled = 'disabled'; 
+    $type = 'Public';
+  } else {
+    $type = 'Premium';
+  }
+  
   if(isset($_GET) and !empty($_GET))
   {
     if($_GET['out']==1)
