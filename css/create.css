@@ -76,7 +76,7 @@ ul, li {
   margin: 1.2em 0 !important;
 }
 #mixLibrary {
-  height: 130px;
+  height: 114px;
 }
 
 /* Upload */
@@ -92,4 +92,9 @@ ul, li {
 }
 .dz-success-mark, .dz-error-mark {
   display: none;
+}
+
+#uploadStatus {
+  font-size: 1.1em;
+  padding-bottom: 0.5em;
 }

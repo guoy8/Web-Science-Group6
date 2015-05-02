@@ -63,6 +63,9 @@ h4 {
   color: #DDD;
   font-weight: bold;
 }
+.hidden {
+  display: none;
+}
 
 #error {
   display: none;
@@ -99,15 +102,55 @@ h4 {
   background-color: #22303A;
 }
 
+/*
+ * Sound Library 
+ */
+.library li {
+  position: relative;
+  padding: 1em;
+}
+.library p {
+  text-align: center;
+}
+.library li img {
+  width: 100%;
+  cursor: pointer;
+}
+.library li button.small, .library div .button.small {
+  padding: 0.5rem 0.8rem ;
+  font-size: 1em ;
+  margin: 0 0.5em 0 0;
+}
+.library li h4 {
+  background-color: #007095;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 150px;
+  width: 90%;
+  border-left: 1em solid white;
+  font-size: 16px;
+}
+.library li:hover + button {
+  background-color: #84BD00 !important;
+}
+.button {
+  background-color: #191919;
+}
+
+.loading {
+  text-align: center;
+  padding: 1em;
+  color: white;
+  font-size: 16px;
+}
+
 
 .panel{
   border-color: transparent;
   background-color: #0A0B0D;
   padding: 1em;
   border-radius: 0.5em;
-}
-.button{
-    background-color: #191919;
 }
 
 

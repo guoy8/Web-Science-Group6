@@ -2,8 +2,11 @@
 include("php/SoundAndMix.php");
 session_start();
 
-	$user=new SoundAndMixes($_SESSION['uid'],$_SESSION['username'],$_SESSION['fullname']);
-
+  if (isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname'])) {
+    $user=new SoundAndMixes($_SESSION['uid'],$_SESSION['username'],$_SESSION['fullname']);
+  } else {
+    $user=new SoundAndMixes('', '', '');
+  }
   	//$arr=$user->fetchJson();
  
   	$arr=$user->fetchMixRand(3);

@@ -13,7 +13,7 @@ var soundImgs = {
 	"Wind Blowing in a Field": "img/listendefaultimg/5.jpg",
 	"Northern Cold Wind Chimes": "img/listendefaultimg/8.jpg",
 	"Five Rake Large Wind Chimes": "img/listendefaultimg/9.jpg",
-	"Nearby Wind Chimes": "img/listendefaultimg/7.jpg"
+	"Nearby Wind Chimes": "img/listendefaultimg/7.jpg",
 };
 
 var instanceHash = {};
@@ -55,16 +55,20 @@ function init() {
 	// createjs.Sound.setVolume(50 / 100);
 }
 
-function removeLoad() {
-	$(".loading").remove();
-}
+function removeLoad() { $(".loading").remove(); }
 
 function addSoundToList(event) {
 	// Add to page
 	var id = event.item.id.replace(/ /g,'');
-	var newSound = 	'<div class="small-12 medium-6 large-4" id="' + id + '">' +
-					'<img src="' + soundImgs[event.item.id] + '"/>' +
-					'<h4><button class="small button"><i class="fa fa-fw fa-play"></i></button>' + event.item.id + '</h4></div>';
+
+	var newSound = 	'<li id="' + id + '">';
+	if (soundImgs[event.item.id]) {
+		newSound += '<img src="' + soundImgs[event.item.id] + '"/>';
+	} else {
+		newSound += '<img src="img/listendefaultimg/4.jpg"/>';
+	}
+	newSound += '<h4><button class="small button"><i class="fa fa-fw fa-play"></i></button>' + event.item.id + '</h4></li>';
+	
 	$("#defaultLibrary").append(newSound);
 	$("#" + id).on('click', function() {
 		var instance = instanceHash[event.item.id];
@@ -87,8 +91,34 @@ function addSoundToList(event) {
 	});
 }
 
-// Load user mixes
+function removeUserLoad() { $(".userloading").remove(); }
+
+// Load user mixes and sounds
 if (document.getElementById("userLibrary")) {
+	$.ajax({
+      	dataType: "JSON",
+      	url: "fetchAllSound.php",
+      	success: function(data) {
+      		console.log(data);
+      		var newsounds = [];
+      		var queue = new createjs.LoadQueue();
+			queue.installPlugin(createjs.Sound);
+			queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
+			queue.on("complete", removeUserLoad);
+      		if (data.length !== 0) {
+      			for(var i = 0; i < data.length; i++) {
+      				console.log(data[i]);
+      				var sound = {};
+      				sound['id'] = data[i]['id'];
+      				sound['src'] = data[i]['src'];
+      				newsounds.push(sound);
+      			}
+      		}
+      		queue.loadManifest(newsounds);
+      		function removeUserLoad() { $(".userloading").remove(); }
+      	}
+    });
+
 	$.ajax({
       	dataType: "JSON",
       	url: "fetchMix.php",
@@ -96,7 +126,7 @@ if (document.getElementById("userLibrary")) {
       		if (data.length === 0) {
       			$("#userLibrary").html("<p>You haven't saved any mixes! Visit <a href='create.php'>the create page</a> to start mixing now.</p>");
       		} else {
-      			console.log(data);
+      			// console.log(data);
       			for(var i = 0; i < data.length; i++) {
       				addUserMix(data[i]['name'], JSON.stringify(data[i]['mixes']));
       			}
@@ -113,9 +143,9 @@ function addUserMix(name, mix) {
 	var id = "mix" + (mixnum+1);
 	mixnum++;
 	var mix = JSON.parse(mix);
-	var usermix = 	'<div class="small-12 medium-6 large-4" id="' + id + '">' +
+	var usermix = 	'<li id="' + id + '">' +
 					'<img src="' + 'http://i59.tinypic.com/1el9og.jpg' + '"/>' +
-					'<h4><button class="small button"><i class="fa fa-fw fa-play"></i></button>' + name + '</h4></div>';
+					'<h4><button class="small button"><i class="fa fa-fw fa-play"></i></button>' + name + '</h4></li>';
 	$("#userLibrary").append(usermix);
 
 	$("#" + id).on('click', function() {
@@ -140,7 +170,7 @@ function addUserMix(name, mix) {
 				pause = false;
 				$("#" + id + " button").html('<i class="fa fa-fw fa-play"></i></button>');
 			}
-			console.log(mixHash[id]);
+			// console.log(mixHash[id]);
 			for (var i=0; i<mixHash[id].length; i++) {
 				pause ? mixHash[id][i].resume() : mixHash[id][i].pause();
 			}

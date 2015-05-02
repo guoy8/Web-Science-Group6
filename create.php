@@ -24,15 +24,13 @@
   if(isset($_SESSION['uid']) and isset( $_SESSION['username']) and isset($_SESSION['fullname']))
   {
     echo '<script type="javascript">alert("hi");</script>';
-    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['fullname'] . '</a>';
-    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . ' User </li><li><a href="create.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+    $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . ' User </li><li><a href="index.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
     $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
-    $loginsm .= '<li><a href="create.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
+    $loginsm .= '<li><a href="index.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
   }
-
-  
 ?>
 
 <!doctype html>
@@ -202,13 +200,16 @@
                       // List of user mixes -->
                       echo '<form><select id="mixLibrary" multiple="multiple" class="select"></select></form>';
                       echo '<button id="loadBtn" class="small button disabled small-12 medium-12 large-12" onclick="loadMix()"><i class="fa fa-plus"></i> Load</button>';
-                      echo '</div><div class="medium-12 large-6 columns">';
-                      echo '<h3 id="saveFileTitle"><i class="fa fa-fw fa-upload"></i> Upload Sound: </h3>';
-                      echo '<form action="uploadFile.php" class="dropzone" id="fileUpload">';
-                      echo '<div class="fallback"><input type="file" name="file" id="fileToUpload"></div></form>';
-                      echo '<label>Sound Title: <input type="text" id="soundTitle"></label>';
-                      echo '<button id="upload" class="small button disabled small-12"><i class="fa fa-plus"></i> Upload</button>';
                       echo '</div>';
+                      echo '<div class="medium-12 large-6 columns">';
+                      echo '<h3 id="saveFileTitle"><i class="fa fa-fw fa-upload"></i> Upload Sound: </h3>';
+                      echo '<div id="uploadStatus"></div>';
+                      echo '<form id="fileUpload" method="post" enctype="multipart/form-data">';
+                      echo '<input name="MAX_FILE_SIZE" value="2000000" type="hidden">';
+                      echo '<input type="file" name="myfile" />';
+                      echo '<label>Sound Title: <input id="soundTitle" name="soundTitle" type="text"></label>';
+                      echo '<button id="upload" class="small button small-12" type="submit"><i class="fa fa-plus"></i> Upload</button>';
+                      echo '</form></div>';
                     }
                   ?>
 
@@ -340,7 +341,6 @@
     <script src="js/foundation/foundation.accordion.js"></script>
     <script src="js/foundation/foundation.reveal.js"></script>
     <script src="js/circular-slider.js"></script>
-    <script src="js/dropzone.js"></script>
     <script src="js/create.js"></script>
   </body>
 </html>

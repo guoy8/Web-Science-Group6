@@ -51,49 +51,6 @@ h4 {
     color: #FFF !important;
 }
 
-/*
- * Sound Library 
- */
-.library div {
-  position: relative;
-  display: inline-block;
-  padding: 1em;
-}
-.library p {
-  text-align: center;
-}
-.library div img {
-  width: 100%;
-  cursor: pointer;
-}
-.library div button.small, .library div .button.small {
-  padding: 0.5rem 0.8rem ;
-  font-size: 1em ;
-  margin: 0 0.5em 0 0;
-}
-.library div h4 {
-  background-color: #007095;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-top: 150px;
-  width: 90%;
-  border-left: 1em solid white;
-  font-size: 16px;
-}
-.library div:hover + button {
-  background-color: #84BD00 !important;
-}
-.button {
-  background-color: #191919;
-}
-
-.loading {
-  text-align: center;
-  padding: 1em;
-  color: white;
-  font-size: 16px;
-}
 
 footer {
     background-color: #D7D7EA;

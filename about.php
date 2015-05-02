@@ -19,11 +19,11 @@
   {
     echo '<script type="javascript">alert("hi");</script>';
     $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
-    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="about.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . ' User </li><li><a href="index.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
     $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
-    $loginsm .= '<li><a href="about.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
+    $loginsm .= '<li><a href="index.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
   }
 
   

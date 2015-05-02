@@ -97,6 +97,33 @@ function init() {
 		{id: "Nearby Wind Chimes", src: "sounds/windchimes/nearby_wind_chimes.ogg"}
 	]);
 
+	// If user has their own sounds, load them.
+	if (document.getElementById('mixLibrary')) {
+		$.ajax({
+	      	dataType: "JSON",
+	      	url: "fetchAllSound.php",
+	      	success: function(data) {
+	      		console.log(data);
+	      		var newsounds = [];
+	      		var queue = new createjs.LoadQueue();
+				queue.installPlugin(createjs.Sound);
+				queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
+				queue.on("complete", removeUserLoad);
+	      		if (data.length !== 0) {
+	      			for(var i = 0; i < data.length; i++) {
+	      				console.log(data[i]);
+	      				var sound = {};
+	      				sound['id'] = data[i]['id'];
+	      				sound['src'] = data[i]['src'];
+	      				newsounds.push(sound);
+	      			}
+	      		}
+	      		queue.loadManifest(newsounds);
+	      		$(".userloading").remove();
+      		}
+    	});
+	}
+
 	// Set master volume to 50%
 	// createjs.Sound.setVolume(50 / 100);
 }
@@ -108,6 +135,9 @@ function init() {
  * =========================================
  */
 
+function removeUserLoad() {
+	$(".userloading").remove();
+}
 /*
  * General 
  */
@@ -152,7 +182,7 @@ function trackTime(key) {
 	var positionInterval = setInterval(function (event) {
 		if (sliders.hasOwnProperty(key)) {
 		    var obj = sliders[key];
-			obj.setValue(Math.floor(instanceHash[key].getPosition()));
+			obj.setValue(Math.floor(instanceHash[key].getPosition() % instanceHash[key].getDuration()));
 		}
 	}, 50);
 	posIntervals[key] = positionInterval;
@@ -360,6 +390,7 @@ if (document.getElementById("mixLibrary")) {
       	dataType: "JSON",
       	url: "fetchMix.php",
       	success: function(data) {
+      		console.log(data);
       		// console.log(data);
       		if (data.length === 0) {
       			$("#mixLibrary").prop("disabled", true);
@@ -388,31 +419,35 @@ function loadMix(event) {
 	}
 }
 
-// Add upload UI
-Dropzone.autoDiscover = false;
-var upload = new Dropzone("#fileUpload", {
-	url: "/upload.php",
-	autoProcessQueue: false,
-	acceptedFiles: ".ogg,.mp3",
-	dictDefaultMessage: "Click or drop to upload your sound (.ogg, .mp3)",
-	accept: function(file, done) {
-		$("#upload").removeClass("disabled");
-	},
-	sending: function(file, xhr, formData) {
-		var title = $("#soundTitle").val();
-		console.log(file);
-		console.log(formData);
-		if (title === "") { title = "New Sound"; }
-	    formData.append("soundname", title);
-	},
-	error: function(a, error, xhr) {
-		alert(error);
-	}
+
+/* 
+ * Upload Sound
+ */
+$("#fileUpload").submit(function(){
+    var formData = new FormData($(this)[0]);
+    $.ajax({
+        url: 'upload.php',
+        type: 'POST',
+        data: formData,
+        success: function(data) {
+      		$("#uploadStatus").html('<i class="fa fa-circle-o-notch fa-spin"></i> Uploading...');
+      	},
+        complete: function (xhr, status) {
+        	console.log(status);
+        	$("#uploadStatus").html("Uploaded successfully!");
+        	$("#fileUpload")[0].reset();
+        },
+        error: function(data) {
+        	$("#uploadStatus").html("Error occurred with upload!");
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+
+    return false;
 });
 
-$('#upload').click(function(){           
-     upload.processQueue();
-});
 
 /*
  * Edit Sound 

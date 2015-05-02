@@ -19,15 +19,14 @@
   {
     echo '<script type="javascript">alert("hi");</script>';
     $loginlg = '<li class="has-dropdown"><a href="#">' . $_SESSION['username'] . '</a>';
-    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . 'User </li><li><a href="index.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
+    $loginlg .= '<ul class="dropdown"><li class="text">' . $type . ' User </li><li><a href="index.php?out=1" onclick="logout()">Logout</a></li></ul></li>';
 
     $loginsm = '<li class="text username">Logged in as: <span>' . $_SESSION['username'] . '</span></li>';
     $loginsm .= '<li class="text indent"><i class="fa fa-right-arrow"></i>' . $type . ' User </li>';
     $loginsm .= '<li><a href="index.php?out=1" onclick="logout()" class="indent">Logout</a></li>';
   }
-
-  
 ?>
+
 <!doctype html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
@@ -97,11 +96,18 @@
 
     <!-- Start of Content -->
         <section id="example" class="row">
+
+          <!-- All sound sliders go here -->
           <div id="tracks" class="small-12 medium-12 large-12 columns">
+            <div id="track4" class="center"></div>
+            <div id="track3" class="center"></div>
+            <div id="track2" class="center"></div>
             <div id="track1" class="center"></div>
             <div id="track0" class="center"></div>
+
+            <!-- Buttons on the slider interface -->
             <div class="center">
-              <button id="playSound" class="centerbtn small"><i class="fa fa-fw fa-play"></i></button>
+              <button id="playAll" class="centerbtn small"><i class="fa fa-fw fa-play"></i></button>
             </div>
           </div>
         </section>
@@ -128,19 +134,11 @@
         </div>
 
         <!-- Show 3 random mixes -->
-        <div class="row">
-          <div class="large-4 columns">
-            <img id="sm_img1" src="./img/rain_rainy.jpg"/>
-
+        <div class="row small-12">
+          <div class="small-12 loading">
+            <i class="fa fa-circle-o-notch fa-spin"></i> Please wait while sounds are being loaded...
           </div>
-          
-          <div class="large-4 columns">
-            <img id="sm_img2" src="./img/rain_birds.jpg"/>
-          </div>
-          
-          <div class="large-4 columns">
-            <img id="sm_img3" src="./img/rain_stream.jpg"/>
-          </div>
+          <ul id="random" class="library small-block-grid-1 medium-block-grid-2 large-block-grid-3"></ul>
         </div>
         
      
@@ -172,15 +170,14 @@
       </div>
     </div>
 
+    <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/modernizr.js"></script>
     <script src="https://code.createjs.com/createjs-2014.12.12.min.js"></script>
-    <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="js/foundation/foundation.slider.js"></script>
+    <script src="js/foundation/foundation.accordion.js"></script>
+    <script src="js/foundation/foundation.reveal.js"></script>
     <script src="js/circular-slider.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/weather.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
   </body>
 </html>
