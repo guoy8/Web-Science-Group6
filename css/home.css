@@ -16,3 +16,8 @@ p.small-4.columns{
 .panel h3{
     color:white;
 }
+
+#email{
+	color:white;
+	font-size: 12px;
+}

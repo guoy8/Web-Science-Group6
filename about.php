@@ -104,7 +104,7 @@
     <!-- Start of Content -->
         <div class="row">
           <div class="large-10 large-centered columns">
-            <h2>About</h2>
+            <h1>About</h1>
           </div>
         </div>
         <div class="row">
@@ -112,7 +112,7 @@
             <div class="panel">
               <div class="row">
                 <div class="large-11 large-centered columns">
-                  <h3>.wavpool is an interactive sound library that allows users to mix and play sounds to create a unique ambient environment. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, veniam, asperiores fugit quas quaerat soluta in quibusdam placeat incidunt suscipit esse neque quisquam eaque rem!</h3>
+                  <h3>.wavpool is an interactive sound library that allows users to mix and play sounds to create a unique ambient environment. Use preloaded sounds or upload your own! Layer and edit multiple sounds to create a new mix that can be saved with a user account. Allow the weather feature to find your local weather conditions and recommend sounds in the opposite nature to put you in a new mood. The page will also style to match the opposite weather conditions to allow for complete immersion.</h3>
                 </div>
               </div>
             </div>
@@ -120,7 +120,7 @@
         </div>
         <div class="row">
           <div class="large-10 large-centered columns">
-            <h2>Contact</h2>
+            <h1>Contact</h1>
           </div>
         </div>
         <div class="row">
@@ -129,27 +129,27 @@
               <div class="row">
                 <div class="large-2 columns">
                   <h4>Elise Baik</h4>
-                  <h4>email:</h4>
+                  <h6 id="email">elisebaik@gmail.com</h6>
                 </div>
                 <div class="large-2 columns">
                   <h4>Kevan DuPont</h4>
-                  <h4>email:</h4>
+                  <h6 id="email">duponk2@rpi.edu</h6>
                 </div>
                 <div class="large-2 columns">
                   <h4>Tina Guo</h4>
-                  <h4>email:</h4>
+                  <h6 id="email">guoy8@rpi.edu</h6>
                 </div>
                 <div class="large-2 columns">
                   <h4>Qihua Hao</h4>
-                  <h4>email:</h4>
+                  <h6 id="email">haoqihuadd@gmail.com</h6>
                 </div>
                 <div class="large-2 columns">
                   <h4>Sylvia He</h4>
-                  <h4>email:</h4>
+                  <h6 id="email">hes2@rpi.edu</h6>
                 </div>
                 <div class="large-2 columns">
                   <h4>Tim Tse</h4>
-                  <h4>email:</h4>
+                  <h6 id="email">timtse76@gmail.com</h6>
                 </div>
               </div>
             </div>
