@@ -100,22 +100,25 @@ if (document.getElementById("userLibrary")) {
       	url: "fetchAllSound.php",
       	success: function(data) {
       		console.log(data);
-      		var newsounds = [];
-      		var queue = new createjs.LoadQueue();
-			queue.installPlugin(createjs.Sound);
-			queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
-			queue.on("complete", removeUserLoad);
-      		if (data.length !== 0) {
-      			for(var i = 0; i < data.length; i++) {
-      				console.log(data[i]);
-      				var sound = {};
-      				sound['id'] = data[i]['id'];
-      				sound['src'] = data[i]['src'];
-      				newsounds.push(sound);
-      			}
+      		if (data.length === 0) {
+      			removeUserLoad();
+      		} else {
+      			var newsounds = [];
+	      		var queue = new createjs.LoadQueue();
+				queue.installPlugin(createjs.Sound);
+				queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
+				queue.on("complete", removeUserLoad);
+	      		if (data.length !== 0) {
+	      			for(var i = 0; i < data.length; i++) {
+	      				console.log(data[i]);
+	      				var sound = {};
+	      				sound['id'] = data[i]['id'];
+	      				sound['src'] = data[i]['src'];
+	      				newsounds.push(sound);
+	      			}
+	      		}
+	      		queue.loadManifest(newsounds);
       		}
-      		queue.loadManifest(newsounds);
-      		function removeUserLoad() { $(".userloading").remove(); }
       	}
     });
 

@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="css/general.css" />
     <link rel="stylesheet" href="css/home.css" />
   </head>
-  <body onload="init()">
+  <body>
   <!-- Start of large navigation bar -->
   <!-- NOTE: The "active" class has to be changed based on the page -->
     <section class="navigation-section show-for-large-up">
@@ -103,7 +103,7 @@
 
     <!-- Start of Content -->
         <div class="row">
-          <div class="large-10 large-centered columns">
+          <div class="large-12 large-centered columns">
             <h1>About</h1>
           </div>
         </div>
@@ -112,15 +112,19 @@
             <div class="panel">
               <div class="row">
                 <div class="large-11 large-centered columns">
-                  <h3>.wavpool is an interactive sound library that allows users to mix and play sounds to create a unique ambient environment. Use preloaded sounds or upload your own! Layer and edit multiple sounds to create a new mix that can be saved with a user account. Allow the weather feature to find your local weather conditions and recommend sounds in the opposite nature to put you in a new mood. The page will also style to match the opposite weather conditions to allow for complete immersion.</h3>
+                  <div class="about">
+                    <p><strong>.wavpool</strong> is an interactive sound library that allows users to mix and play sounds to create a unique ambient environment. </p>
+                    <p>Use preloaded sounds or upload your own! Layer and edit multiple sounds to create a new mix that can be saved with a user account.</p>
+                    <p>Allow the weather feature to find your local weather conditions and recommend sounds in the opposite nature to put you in a new mood. The page will also style to match the opposite weather conditions to allow for complete immersion.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="large-10 large-centered columns">
-            <h1>Contact</h1>
+          <div class="large-12 large-centered columns">
+            <h1>Contact Us:</h1>
           </div>
         </div>
         <div class="row">
@@ -155,23 +159,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="large-12 columns">
-          
-            <div id="contact" class="panel">
-                  
-              <div class="row">
-                <div class="large-9 columns">
-                </div>
-                <div class="large-3 columns">
-                  <a href="#" class="radius button right">Contact Us</a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>      
-
         <section class="full-width copyright-section">
             <div class="row">
               <div class="small-12 columns">

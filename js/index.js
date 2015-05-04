@@ -37,17 +37,13 @@ function init() {
       	dataType: "JSON",
       	url: "fetchMixRand.php",
       	success: function(data) {
-      		if (data[0]['name'] === null) { 
-      			$("#random").remove(); 
+      		if (data.length === 0) { $("#random").remove(); }
       		else {
 	      		for(var i = 0; i < data.length; i++) {
-	      			if (data[i]['name'] === null) {
-		      			$(".loading").remove();
-		      			return;
-		      		} 
 	      			addRandomMix(data[i]['name'], JSON.stringify(data[i]['mixes']));
 	      		}
 	      	}
+	      	$(".loading").remove();
       	},
       	error: function (xhr, ajaxOptions, thrownError) {
 	        console.log(xhr.status + ": " + thrownError);
@@ -77,17 +73,12 @@ function init() {
 			//Get the current location coordinates and change theme
 	        navigator.geolocation.getCurrentPosition(showPosition, errorCallback, {timeout:2000});
 	    } else {
-	    	// console.log("else statement");
 	    	queue.on("complete", addMainMix);
 	    }
 	});
 	function errorCallback() {
-		// console.log("Geolocation error");
 		queue.on("complete", addMainMix);
 	}
-
-	// Set master volume to 50%
-	// createjs.Sound.setVolume(50 / 100);
 }
 
 // Play/pause all sounds 
@@ -95,7 +86,6 @@ var pause = false;
 function masterPlayPause(event) {
 	if (slidersId.length === 5) { return; }
 	pause = !pause;
-	// console.log("Want to pause all songs: " + pause);
 	if (pause) {
 		$("#playAll i").removeClass("fa-pause").addClass("fa-play");
 	} else {
@@ -103,7 +93,6 @@ function masterPlayPause(event) {
 	}
 	for (var key in instanceHash) {
 	   	if (instanceHash.hasOwnProperty(key)) {
-	   		// console.log("masterplaypause: " + key);
 	    	var obj = instanceHash[key];
 	    	// If user wishes to pause all sounds and sound is not finished
 	    	if (pause && obj.playState != createjs.Sound.PLAY_FINISHED) { obj.pause(); } 
@@ -119,14 +108,14 @@ function masterPlayPause(event) {
 }
 
 var mixnum = 0;
-var images = ["./img/rain_rainy.jpg", "./img/rain_birds.jpg", "./img/rain_stream.jpg"];
+var images = ["img/rain_rainy.jpg", "img/rain_birds.jpg", "img/rain_stream.jpg"];
 // Adds random mix to page
 function addRandomMix(name, mix) {
 	// Add to page
 	var id = "mix" + (mixnum+1);
 	var mix = JSON.parse(mix);
 	var usermix = 	'<li id="' + id + '">' +
-					'<img src="' + images[mixnum] + '"/>' +
+					'<img id="sm_img' + mixnum + '" src="' + images[mixnum] + '"/>' +
 					'<h4><button class="small button"><i class="fa fa-fw fa-play"></i></button>' + name + '</h4></li>';
 	$("#random").append(usermix);
 	mixnum++;
@@ -153,7 +142,6 @@ function addRandomMix(name, mix) {
 				pause = false;
 				$("#" + id + " button").html('<i class="fa fa-fw fa-play"></i></button>');
 			}
-			// console.log(mixHash[id]);
 			for (var i=0; i<mixHash[id].length; i++) {
 				pause ? mixHash[id][i].resume() : mixHash[id][i].pause();
 			}
@@ -163,9 +151,11 @@ function addRandomMix(name, mix) {
 
 // Add main mix to page
 function addMainMix(event) {
+	console.log(condition);
 	$.ajax({
       	dataType: "JSON",
       	url: "fetchBycate.php",
+      	type: "POST",
       	data: {category: condition},
       	success: function(data) {
       		if (data.length === 0) {
@@ -178,7 +168,11 @@ function addMainMix(event) {
       		}
       		$(".loading").remove();
       		$("#playAll").html('<i class="fa fa-fw fa-pause"></i>');
-      	}
+      	},
+      	error: function (xhr, ajaxOptions, thrownError) {
+	        console.log(xhr.status + ": " + thrownError);
+	    }
+
     });
 }
 
@@ -192,9 +186,7 @@ function createSound(name, volume, pan, loop) {
 	instance.loop = loop;
 	instance.name = name;
 	instance.id = slidersId[0];
-	// console.log("Adding sound: " + item.text + " with id " + instance.id);
 	slidersId.splice(0, 1);
-	// console.log("remaining ids: " + slidersId);
 
 	// Save instance
 	instanceHash[instance.id] = instance;
@@ -218,7 +210,6 @@ function createSound(name, volume, pan, loop) {
 	}
 	// Play instance
 	else { 
-		// console.log("playing: " + instance.name);
 		instance.play({ loop: instance.loop, pan: instance.pan, volume: instance.volume });
 		$("#playAll i").removeClass("fa-play").addClass("fa-pause");
 	}
@@ -244,44 +235,45 @@ function showPosition(position){
 	$.get("http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&APPID=9a25400d6a728870af915c8c614e77d7", function(data){
 		$.each(data.weather, function(i, obj){
 			if(obj.id >= 800 && obj.id <= 803){  //weather ids of sunny/cloudy, not raining. Displays rain images
-				condition = "sunny";
+				condition = "rainy";
 			}
 			else{ //weather ids of rainy/stormy. Displays sunny images
-				document.getElementById("Weather").src = "img/Sunny/weather_sunny.jpg";
-				document.getElementById("sm_img0").src = "img/Sunny/sunny_chime.jpg";
-				document.getElementById("sm_img1").src = "img/Sunny/sunny_bee.jpg";
-				document.getElementById("sm_img2").src = "img/Sunny/sunny_fountain.jpg";
-				document.getElementById("tracks").style.backgroundImage = "url('img/Sunny/sunny_treetops.jpg')";
-				document.body.style.backgroundImage = "url('img/Sunny/sunny_background.jpg')";
-				document.getElementById("weather_panel").style.backgroundColor = "#CCCC00";
-				document.getElementById("contact").style.backgroundColor = "#CCCC00";
-				condition = "rainy";
+				$("#weather").attr('src', 'img/Sunny/weather_sunny.jpg');
+				$("#sm_img0").attr('src', 'img/Sunny/sunny_chime.jpg');
+				$("#sm_img1").attr('src', 'img/Sunny/sunny_bee.jpg');
+				$("#sm_img2").attr('src', 'img/Sunny/sunny_fountain.jpg');
+				$("#tracks").css("backgroundImage", "url('img/Sunny/sunny_treetops.jpg')");
+				$('body').css("backgroundImage", "url('img/Sunny/sunny_background.jpg')");
+				$("#weather_panel").css("backgroundColor", "#CCCC00");
+				$("#contact").css("backgroundColor", "#CCCC00");
+				condition = "sunny";
 			}
 		});
 		if((data.main.temp-'273').toFixed(0) > 21){    //warm weather hotter than 70 F. Displays cold images
-			document.getElementById("Weather").src = "img/Cold/weather_cold.jpg";
-			document.getElementById("sm_img0").src = "img/Cold/cold_icicle.jpg";
-			document.getElementById("sm_img1").src = "img/Cold/cold_owl.jpg";
-			document.getElementById("sm_img2").src = "img/Cold/cold_bells.jpg";
-			document.getElementById("tracks").style.backgroundImage = "url('img/Cold/cold_stream.jpg')";
-			document.body.style.backgroundImage = "url('img/Cold/cold_background.jpg')";
-			document.body.style.backgroundRepeat = "repeat";
-			document.getElementById("weather_panel").style.backgroundColor = "#D8DFEB";
-			document.getElementById("contact").style.backgroundColor = "#D8DFEB";
-			condition = "warm";
-		}
-		if((data.main.temp-'273').toFixed(0) < 0){    //cold weather colder than 32 F. Displays hot images
-			document.getElementById("Weather").src = "img/Warm/weather_warm.jpg";
-			document.getElementById("sm_img0").src = "img/Warm/warm_seagulls.jpg";
-			document.getElementById("sm_img1").src = "img/Warm/warm_beach.jpg";
-			document.getElementById("sm_img2").src = "img/Warm/warm_underwater.jpg";
-			document.getElementById("tracks").style.backgroundImage = "url('img/Warm/warm_bonfire.jpg')";
-			document.body.style.backgroundImage = "url('img/Warm/warm_background.jpg')";
-			document.getElementById("weather_panel").style.backgroundColor = "#EEEEF0";
-			document.getElementById("contact").style.backgroundColor = "#EEEEF0";
+			$("#weather").attr('src', 'img/Cold/weather_cold.jpg');
+			$("#sm_img0").attr('src', 'img/Cold/cold_icicle.jpg');
+			$("#sm_img1").attr('src', 'img/Cold/cold_owl.jpg');
+			$("#sm_img2").attr('src', 'img/Cold/cold_bells.jpg');
+			$("#tracks").css("backgroundImage", "url('img/Cold/cold_stream.jpg')");
+			$('body').css("backgroundImage", "url('img/Cold/cold_background.jpg')");
+			$('body').css("backgroundRepeat", 'repeat');
+			$("#weather_panel").css("backgroundColor", "#D8DFEB");
+			$(".panel h3, .panel h4").css("color", "#0A0B0D");
+			$("#contact").css("backgroundColor", "#D8DFEB");
 			condition = "cold";
 		}
+		if((data.main.temp-'273').toFixed(0) < 0){    //cold weather colder than 32 F. Displays hot images
+			$("#weather").attr('src', 'img/Warm/weather_warm.jpg');
+			$("#sm_img0").attr('src', 'img/Warm/warm_seagulls.jpg');
+			$("#sm_img1").attr('src', 'img/Warm/warm_beach.jpg');
+			$("#sm_img2").attr('src', 'img/Warm/warm_underwater.jpg');
+			$("#tracks").css("backgroundImage", "url('img/Warm/warm_bonfire.jpg')");
+			$('body').css("backgroundImage", "url('img/Warm/warm_background.jpg')");
+			$("#weather_panel").css("backgroundColor", "#EEEEF0");
+			$(".panel h3, .panel h4").css("color", "#0A0B0D");
+			$("#contact").css("backgroundColor", "#EEEEF0");
+			condition = "warm";
+		}
 	});
-	// console.log("I was called in weatherapi");
 	queue.on("complete", addMainMix);
 }

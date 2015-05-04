@@ -21,7 +21,7 @@ if(isset($_POST) and !empty($_POST))
 	<head>
 		<meta charset="utf-8" />
     	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    	<title>Register</title>
+    	<title>.wavpool // Register</title>
     	<link rel="stylesheet" href="css/foundation.min.css" />
     	<link rel="stylesheet" href="css/general.css" />
       <style>
@@ -126,8 +126,12 @@ if(isset($_POST) and !empty($_POST))
         <section class="main-section">
         </section>
   <script src="js/vendor/jquery.js"></script>
+  <script src="js/vendor/modernizr.js"></script>
+  <script src="js/foundation.min.js"></script>
   <script src="js/jquery.validate.js"></script>
+  <script src="js/foundation/foundation.reveal.js"></script>
   <script>
+  $(document).foundation();
   $(document).ready( function(){
     $("#regform").validate({
                 rules: {

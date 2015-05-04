@@ -139,7 +139,7 @@
       <section class="full-width copyright-section">
           <div class="row">
             <div class="small-12 columns">
-              <p>© Copyright no one at all. Go to town.</p>
+              <p>© Copyright 2015</p>
             </div>
           </div>
         </section>

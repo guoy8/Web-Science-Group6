@@ -66,7 +66,6 @@ function init() {
 
 	// When user selects a new sound... 
 	$("#library").change(selectNew);
-	$("#mixLibrary").change(selectNewMix);
 	// When user selects a current playing sound...
 	$("#nowPlaying").change(selectCurrent);
 
@@ -84,6 +83,7 @@ function init() {
 	var queue = new createjs.LoadQueue();
 	queue.installPlugin(createjs.Sound);
 	queue.addEventListener("fileload", createjs.proxy(addSoundToList, this));
+	queue.on("complete", enableLoad);
 	queue.loadManifest([
 	    {id: "Beach Waves", src: "sounds/beach/beach_waves_at_praia_grande.ogg"},
 		{id: "Broken Top Creek", src: "sounds/brook/broken_top_creek.ogg"},
@@ -103,7 +103,7 @@ function init() {
 	      	dataType: "JSON",
 	      	url: "fetchAllSound.php",
 	      	success: function(data) {
-	      		console.log(data);
+	      		// console.log(data);
 	      		var newsounds = [];
 	      		var queue = new createjs.LoadQueue();
 				queue.installPlugin(createjs.Sound);
@@ -138,6 +138,12 @@ function init() {
 function removeUserLoad() {
 	$(".userloading").remove();
 }
+
+function enableLoad() {
+	$("#mixLibrary").change(selectNewMix);
+	$("#loadBtn").html('<i class="fa fa-plus"></i> Load');
+}
+
 /*
  * General 
  */
@@ -390,7 +396,6 @@ if (document.getElementById("mixLibrary")) {
       	dataType: "JSON",
       	url: "fetchMix.php",
       	success: function(data) {
-      		console.log(data);
       		// console.log(data);
       		if (data.length === 0) {
       			$("#mixLibrary").prop("disabled", true);
@@ -431,6 +436,7 @@ $("#fileUpload").submit(function(){
         data: formData,
         success: function(data) {
       		$("#uploadStatus").html('<i class="fa fa-circle-o-notch fa-spin"></i> Uploading...');
+      		console.log(data);
       	},
         complete: function (xhr, status) {
         	console.log(status);

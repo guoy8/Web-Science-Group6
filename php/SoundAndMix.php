@@ -12,9 +12,9 @@ class SoundAndMixes
 	protected $publicuser = true;
 	const USERTABLENAME="users";
 	const MIXTABLENAME="mixes";
-	const MIXOWNERTABLENAME="mixesowner";
+	const MIXOWNERTABLENAME="mixesOwner";
 	const SOUNDTABLE="sound";
-	const SOUNDOWNERTABLE="soundowner";
+	const SOUNDOWNERTABLE="soundOwner";
 	const MAXSIZE=100000000;
 	const PATH="sounds/";
 
@@ -54,7 +54,12 @@ class SoundAndMixes
 				$this->connection->InsertRow(self::MIXOWNERTABLENAME,
 					['uid','mid'],
 					[$this->uid,$mid]);
+					
+					
+					
+				
 			}
+			
 		}
 	}
 
@@ -69,12 +74,13 @@ class SoundAndMixes
 			{
 				$mix=$this->connection->SearchForRow(self::MIXTABLENAME,'*',['id'],[$JsonArray[$i]['mid']]);
 				array_push($Allmixes,$mix);
-
+	
 			}
 			//var_dump($Allmixes[0][0]['mix']);
 			//echo json_encode($Allmixes[0][0]['mix']);
+			
 			$allMix=[];
-			for($i=1;$i<count($Allmixes);$i++)
+			for($i=0;$i<count($Allmixes);$i++)
 			{
 				$temp = json_decode($Allmixes[$i][0]['mix'], true);
 				$temp['name'] = $Allmixes[$i][0]['name'];

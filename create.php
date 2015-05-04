@@ -199,9 +199,9 @@
                       echo '<h3 id="loadSoundTitle"><i class="fa fa-fw fa-folder-open"></i> Load sound mix: </h3>';
                       // List of user mixes -->
                       echo '<form><select id="mixLibrary" multiple="multiple" class="select"></select></form>';
-                      echo '<button id="loadBtn" class="small button disabled small-12 medium-12 large-12" onclick="loadMix()"><i class="fa fa-plus"></i> Load</button>';
-                      echo '</div>';
-                      echo '<div class="medium-12 large-6 columns">';
+                      echo '<button id="loadBtn" class="small button disabled small-12 medium-12 large-12" onclick="loadMix()">';
+                      echo '<i class="fa fa-circle-o-notch fa-spin"></i> Please wait while sounds are being loaded...</button>';
+                      echo '</div><div class="medium-12 large-6 columns">';
                       echo '<h3 id="saveFileTitle"><i class="fa fa-fw fa-upload"></i> Upload Sound: </h3>';
                       echo '<div id="uploadStatus"></div>';
                       echo '<form id="fileUpload" method="post" enctype="multipart/form-data">';
@@ -324,7 +324,7 @@
           <div class="full-width copyright-section">
             <div class="row">
                 <div class="small-12 columns">
-                    <p>&copy; 2014</p>
+                    <p>&copy; 2015</p>
                 </div>
             </div>
           </div>

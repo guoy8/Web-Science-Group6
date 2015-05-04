@@ -9,15 +9,19 @@
     border-radius: 1em;
 }
 
-p.small-4.columns{
+div.small-4.columns{
     padding-top: 60px;
 }
 
-.panel h3{
+.panel h3, .panel h4{
     color:white;
 }
 
 #email{
-	color:white;
+	color: white;
 	font-size: 12px;
+}
+.about p {
+	color: white;
+	font-size: 1.5em;
 }

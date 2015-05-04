@@ -131,12 +131,12 @@
         <!-- Weather API -->
         <div id="weather_panel" class="row panel">
           <div class="small-8 columns">
-            <img id = "Weather" src="./img/weather_rain.jpg">
+            <img id = "weather" src="./img/weather_rain.jpg">
           </div>
-          <p class="small-4 columns">
+          <div class="small-4 columns">
             <h3>Sound of the Day</h3>
             <h4>.WAV Pool's weather API is unlike any other weather API where we will use advanced technology to locate the weather of your current location and formulate an output of the opposite weather condition.</h4> 
-          </p>
+          </div>
         </div>
 
         <!-- Show 3 random mixes -->
